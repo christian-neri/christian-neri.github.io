@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radioactive — Case study | Christian Neri</title>
+    <meta name="description"
+        content="Radioactive promotional web experience — retaining engagement when a global cinema release paused mid-campaign.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Paint-bridge: same #fbfbfa as the zoom curtain; dissolves once layout is settled -->
+    <div class="case-zoom-cover" aria-hidden="true"></div>
+    <a class="skip-link" href="#case-main">Skip to case study</a>
+
+    <header class="site-header site-header--case" role="banner">
+        <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+            <span>Back</span>
+        </a>
+    </header>
+
+    <header class="case-hero-screen" aria-labelledby="radio-title">
+        <div class="case-hero-screen__inner">
+            <div class="work-macbook__screen-grid">
+                <div class="work-macbook__copy">
+                    <h1 id="radio-title" class="work-macbook__title">Radioactive</h1>
+                    <div class="work-macbook__tags">
+                        <span class="tag">Web</span>
+                        <span class="tag">Campaign</span>
+                        <span class="tag">Entertainment</span>
+                    </div>
+                    <p class="work-macbook__line"><span class="goal-label"><strong>Context:</strong></span> Oscar&reg;-nominated Rosamund Pike stars as Marie Curie in Studiocanal&apos;s <em>Radioactive</em> — cinemas shut one month prior to release amid COVID-19.</p>
+                    <p class="work-macbook__line"><span class="goal-label"><strong>Goal:</strong></span> Keep audiences engaged between the paused rollout and delayed premiere windows.</p>
+                </div>
+                <div class="work-macbook__visual work-macbook__visual--radioactive">
+                    <img src="assets/radioactive/mobile.png" alt="Radioactive promotional website — responsive layout" loading="eager" fetchpriority="high">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="case-main" class="case-main">
+        <nav class="case-nav-bar" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true"> · </span>
+            <a href="index.html#work">Work</a>
+            <span aria-hidden="true"> · </span>
+            <span aria-current="page">Radioactive</span>
+        </nav>
+
+        <header class="case-overview">
+            <p class="case-sub">Oscar&reg;-nominated Rosamund Pike stars as Marie Curie in Studiocanal&apos;s
+                <em>Radioactive</em>. One month before release, COVID-19 shut cinemas worldwide — the digital experience had
+                to carry narrative momentum through an unprecedented pause.</p>
+            <div class="case-meta-list">
+                <div>
+                    <p class="case-meta-label">Studio</p>
+                    <p class="case-meta-value">Studiocanal</p>
+                </div>
+                <div>
+                    <p class="case-meta-label">Challenge</p>
+                    <p class="case-meta-value">Paused theatrical window</p>
+                </div>
+                <div>
+                    <p class="case-meta-label">Goal</p>
+                    <p class="case-meta-value">Sustain audience curiosity</p>
+                </div>
+            </div>
+        </header>
+
+        <section class="case-section" aria-labelledby="radio-context">
+            <h2 id="radio-context">Context</h2>
+            <p>A prestige biopic launch typically funnels attention through theatrical buzz, influencer beats, and
+                interactive digital extensions. When physical screenings halted, Radioactive&apos;s flagship site evolved into
+                the primary stage for sustaining emotional connection with the film&apos;s feminist-science story.</p>
+        </section>
+
+        <section class="case-section" aria-labelledby="radio-goal-detail">
+            <h2 id="radio-goal-detail">Goal</h2>
+            <p><span class="prose-strong">Maintain engagement between the paused campaign and delayed premiere milestones.</span>
+                The experience leaned on richly art-directed modules — trailer beats, exploratory “Streets of Paris” journeys,
+                and character-centric storytelling vignettes tuned for bingeable mobile sessions.</p>
+        </section>
+
+        <section class="case-section" aria-labelledby="radio-approach">
+            <h2 id="radio-approach">Approach</h2>
+            <p>Rolling narrative sections balanced editorial typography with tactile UI overlays that mirror the kinetic
+                key art palette. Lightweight interactive layers prolonged dwell time without asking audiences to hurdle heavy
+                UI — optimizing for spontaneous discovery on handheld screens during lockdown-era scroll sessions.</p>
+        </section>
+
+        <section class="case-section" aria-labelledby="radio-gallery-heading">
+            <h2 id="radio-gallery-heading">Experience frames</h2>
+            <p>Campaign-critical screens spanning mobile canvases, trailer beats, tertiary storytelling paths, and artful
+                character studies.</p>
+            <button type="button" class="btn btn--primary case-gallery-trigger" id="open-radio-gallery"
+                aria-haspopup="dialog" aria-controls="lightbox-radioactive">Open gallery</button>
+        </section>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="site-footer-inner">
+            <p>&copy; 2026 Christian Neri</p>
+            <p><a href="mailto:contact@christianneri.com">contact@christianneri.com</a></p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox-radioactive" role="dialog" aria-modal="true"
+        aria-labelledby="lightbox-radioactive-title" hidden data-lightbox-root data-open-button="open-radio-gallery">
+        <div class="lightbox-backdrop" data-lightbox-close></div>
+        <div class="lightbox-panel">
+            <p id="lightbox-radioactive-title" class="visually-hidden">Radioactive website gallery</p>
+            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close gallery">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="lightbox-carousel">
+                <div class="lightbox-viewport" tabindex="0" aria-label="Radioactive website screenshots">
+                    <figure class="lightbox-slide">
+                        <img src="assets/radioactive/mobile.png" alt="Radioactive — mobile website mockup">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/radioactive/trailer.png" alt="Radioactive — trailer page">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/radioactive/homepage.png" alt="Radioactive — homepage">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/radioactive/streets.png" alt="Radioactive — Streets of Paris experience">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/radioactive/characters.png" alt="Radioactive — character story screen">
+                    </figure>
+                </div>
+                <div class="lightbox-toolbar">
+                    <button type="button" class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous image">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="lightbox-dots" aria-label="Gallery position"></div>
+                    <button type="button" class="lightbox-arrow lightbox-arrow--next" aria-label="Next image">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js" defer></script>
+</body>
+
+</html>

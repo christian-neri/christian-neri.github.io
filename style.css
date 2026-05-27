@@ -1,16 +1,175 @@
+/* Design tokens — light skeuomorphism + selective elevation + glass accents
+   --shadow-lift: hero primary CTA, section nav chassis, bottom anchor cards, key CTAs */
 :root {
-    --bg-color: #F0F2F5;
-    --text-primary: #1A1A1A;
-    --text-secondary: #666666;
-    --accent-blue: #0066FF;
-    --accent-gold: #FFD600;
-    --card-bg: #FFFFFF;
-    --white: #FFFFFF;
-    --plus-jakarta: 'Plus Jakarta Sans', sans-serif;
-    --inter: 'Inter', sans-serif;
+    --canvas: #f4f1eb;
+    /* Radials only — full-bleed linear is a separate bottom layer so it never paints over the sketch */
+    --canvas-mesh-radials: radial-gradient(
+            ellipse 120% 82% at 12% -5%,
+            rgba(250, 244, 232, 0.72) 0%,
+            transparent 58%
+        ),
+        radial-gradient(ellipse 92% 64% at 88% 18%, rgba(242, 230, 214, 0.38) 0%, transparent 52%);
+    --canvas-mesh-base: linear-gradient(180deg, var(--canvas) 0%, #eae4d9 100%);
+    /* Sketch-off stack (reduced transparency): same look as before */
+    --canvas-mesh: var(--canvas-mesh-radials), var(--canvas-mesh-base);
+    /* Sketch layer — light wash only tints; most detail stays visible */
+    --canvas-sketch-art: url("assets/bg-canvas-sketch.png");
+    --canvas-sketch-wash: linear-gradient(
+        rgba(244, 241, 235, 0.76) 0%,
+        rgba(244, 241, 235, 0.69) 90%,
+        rgba(237, 232, 220, 0.72) 100%
+    );
+    /* Homepage: wash layer fades from this strength (clearer sketches) to full (--canvas-sketch-wash at opacity 1) */
+    --home-sketch-wash-from: 0.4;
+    --section-gap: clamp(22.5px, 3.94vw, 40.5px);
+    --section-pair-gap: clamp(9px, 1.4vw, 13.5px);
+    --surface: #faf8f5;
+    --surface-raised: #ffffff;
+    /* Raised panels — light glass (solid fallback via reduced-transparency query) */
+    --surface-panel: rgba(255, 255, 255, 0.74);
+    --glass-blur: blur(14px) saturate(155%);
+
+    /* Toggle + hero — shared “liquid glass” face (inset stack matches section nav track) */
+    --liquid-glass-bg: rgba(255, 255, 255, 0.08);
+    --liquid-glass-backdrop: blur(10px) saturate(160%);
+    --liquid-glass-inset-shadows:
+        inset 9px 9px 2px -10px #ffffff,
+        inset 6px 6px 4px -6px #ffffff,
+        inset -6px -6px 4px -6px #b3b3b3,
+        inset 0 0 0 1px rgba(153, 153, 153, 0.45),
+        inset 3px 0 3px 0 rgba(0, 0, 0, 0.12),
+        inset 0 -1px 2px 0 rgba(0, 0, 0, 0.1),
+        inset 8px 8px 6px -7px #ffffff,
+        inset 5px 8px 7px -6px #ffffff,
+        inset -4px -4px 4px -5px rgba(255, 255, 255, 0.55);
+
+    /* Skeuomorphic “carved pill” face — hero CTAs + section toggle */
+    --pill-inset-face: linear-gradient(172deg, #f6f7fa 0%, #e6e9ef 42%, #eceef3 100%);
+    --pill-inset-relaxed:
+        inset 5px 5px 9px rgba(20, 23, 34, 0.13),
+        inset 2px 2px 4px rgba(20, 23, 34, 0.11),
+        inset 1px 1px 2px rgba(20, 23, 34, 0.16),
+        inset -4px -4px 10px rgba(255, 255, 255, 0.96),
+        inset -2px -2px 4px rgba(255, 255, 255, 0.82),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+
+    /* Frost face — tilt vars change per pane for “different viewing angle” */
+    --frost-fill-angle: 168deg;
+    --frost-fill-mid: 42%;
+    --frost-spec-angle: 145deg;
+    --frost-spec-opacity: 0.85;
+    --frost-floor-top: 22%;
+    --frost-floor-bottom: -12%;
+
+    --frost-spec-gradient: linear-gradient(
+        var(--frost-spec-angle),
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.18) 28%,
+        transparent 46%,
+        transparent 58%,
+        rgba(255, 255, 255, 0.08) 78%,
+        rgba(255, 255, 255, 0.22) 100%
+    );
+
+    --hero-frost-bg: linear-gradient(
+        var(--frost-fill-angle),
+        rgba(255, 255, 255, 0.94) 0%,
+        rgba(255, 255, 255, 0.78) var(--frost-fill-mid),
+        rgba(252, 252, 252, 0.86) 100%
+    );
+    --hero-frost-backdrop: blur(26px) saturate(1.85);
+    --hero-frost-border: 1px solid rgba(255, 255, 255, 0.88);
+    --hero-frost-shadow:
+        0 10px 40px rgba(20, 23, 34, 0.07),
+        0 1px 0 rgba(255, 255, 255, 0.98) inset,
+        inset 0 1px 0 rgba(255, 255, 255, 0.65),
+        inset 0 -18px 36px rgba(255, 255, 255, 0.35),
+        inset 10px 12px 24px rgba(255, 255, 255, 0.55),
+        inset -8px -10px 20px rgba(20, 23, 34, 0.04);
+    /* Lighter stack for small tiles (competencies + work cards) */
+    --frost-tile-shadow:
+        0 3px 14px rgba(20, 23, 34, 0.028),
+        0 1px 0 rgba(255, 255, 255, 0.92) inset,
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -8px 16px rgba(255, 255, 255, 0.18),
+        inset 5px 6px 12px rgba(255, 255, 255, 0.32),
+        inset -4px -5px 10px rgba(20, 23, 34, 0.02);
+    --frost-tile-shadow-hover:
+        0 5px 18px rgba(20, 23, 34, 0.04),
+        0 1px 0 rgba(255, 255, 255, 0.96) inset,
+        inset 0 1px 0 rgba(255, 255, 255, 0.48),
+        inset 0 -9px 18px rgba(255, 255, 255, 0.2),
+        inset 5px 6px 14px rgba(255, 255, 255, 0.36),
+        inset -4px -5px 11px rgba(20, 23, 34, 0.025);
+    --border-subtle: #ebe6df;
+    --border-strong: #ded8cf;
+    --text: #141722;
+    --text-muted: #5b6479;
+    --text-soft: #8b93a6;
+    --accent: #3d52d9;
+    /* Profile ring — deep blue aligned with competency icon hue */
+    --avatar-ring: linear-gradient(145deg, #2a3d82 0%, #3d52d9 48%, #243066 100%);
+    --accent-hover: #2f43c4;
+    --accent-glow: linear-gradient(135deg, #6b7cff 0%, #e06bcb 48%, #3dd9a8 100%);
+    --accent-glass: linear-gradient(
+        135deg,
+        rgba(107, 124, 255, 0.85) 0%,
+        rgba(224, 107, 203, 0.75) 50%,
+        rgba(61, 217, 168, 0.72) 100%
+    );
+
+    --shadow-s: 0 2px 6px rgba(20, 23, 34, 0.05), 0 1px 2px rgba(20, 23, 34, 0.04);
+    --shadow-m: 0 6px 20px rgba(20, 23, 34, 0.07), 0 2px 6px rgba(20, 23, 34, 0.04);
+    --shadow-lift: 0 14px 44px rgba(20, 23, 34, 0.11), 0 4px 12px rgba(20, 23, 34, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.85) inset;
+    --inset-well: inset 0 2px 4px rgba(20, 23, 34, 0.06);
+
+    --radius-panel: 20px;
+    --radius-card: 22px;
+    --radius-control: 999px;
+    --font-body: "Inter", system-ui, -apple-system, sans-serif;
+    --font-display: "Red Hat Display", var(--font-body);
+    --font-brand: var(--font-body);
+    --header-z: 50;
+    --header-offset: clamp(100px, 20vw, 144px);
+
+    --ease: cubic-bezier(0.22, 0.92, 0.27, 1);
+    --radioactive-frame: #77c9a8;
+
+    /* Soft UI — white face, restrained shadows */
+    --neo-face: #ffffff;
+    --neo-face-alt: #ffffff;
+    --neo-shadow-dark: rgba(100, 108, 140, 0.11);
+    --neo-shadow-soft: rgba(255, 255, 255, 0.82);
+    --neo-inset-well: rgba(20, 23, 34, 0.035);
+    --neo-press-dark: rgba(100, 108, 140, 0.12);
+
+    --nav-link-color: #1f2223;
+    --nav-link-hover-color: #060709;
+    --nav-link-active-color: #0a0c0d;
+    --nav-link-hover-bg: rgba(255, 255, 255, 0.55);
+    --nav-link-hover-shadow:
+        inset 1px 1px 4px rgba(255, 255, 255, 0.95),
+        inset -1px -1px 3px rgba(0, 0, 0, 0.08),
+        0 1px 2px rgba(20, 23, 34, 0.07);
+    --nav-thumb-face: rgba(255, 255, 255, 0.44);
+    --nav-thumb-shadow:
+        inset 2px 2px 5px rgba(255, 255, 255, 0.95),
+        inset -2px -2px 4px rgba(0, 0, 0, 0.07),
+        0 1px 2px rgba(0, 0, 0, 0.05);
+    --hero-title-color: #181c24;
+    --hero-title-shadow:
+        0 1px 0 rgba(255, 255, 255, 1),
+        0 2px 0 rgba(255, 255, 255, 0.38),
+        0 -1px 0 rgba(20, 23, 34, 0.3),
+        0 -2px 0 rgba(20, 23, 34, 0.12),
+        0 3px 1px rgba(20, 23, 34, 0.08);
+    --case-zoom-cover: #fbfbfa;
 }
 
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -20,319 +179,3239 @@ html {
     scroll-behavior: smooth;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    body {
+        background-attachment: scroll, scroll, scroll, scroll, scroll;
+    }
+
+    body.home {
+        background-attachment: scroll, scroll, scroll, scroll;
+    }
+}
+
 body {
-    font-family: var(--inter);
-    background-color: var(--bg-color);
-    color: var(--text-primary);
-    line-height: 1.6;
-    overflow-x: hidden;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text);
+    background-color: var(--canvas);
+    /* First image = top. Base linear last so it sits behind sketch + wash */
+    background-image: var(--canvas-mesh-radials), var(--canvas-sketch-wash), var(--canvas-sketch-art),
+        var(--canvas-mesh-base);
+    /* 16:9 landscape mood board — uniform scale fills viewport; minimal crop on FHD; ultrawide/mobile may crop edges */
+    background-size: auto, auto, auto, cover, auto;
+    background-position: 0 0, 0 0, 0 0, center center, 0 0;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed, fixed, fixed;
+    -webkit-font-smoothing: antialiased;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 40px;
+/* Homepage only: omit baked-in wash layer; animate wash so sketches read stronger before reveals settle.
+   --canvas-mesh-radials is two layers — keep the same size/position list as body (5th entry removed = 4 values). */
+body.home {
+    background-image: var(--canvas-mesh-radials), var(--canvas-sketch-art), var(--canvas-mesh-base);
+    background-size: auto, auto, cover, auto;
+    background-position: 0 0, 0 0, center center, 0 0;
+    background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: fixed, fixed, fixed, fixed;
 }
 
-/* Navbar */
-.navbar {
-    padding: 30px 0;
+body.home::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: var(--canvas-sketch-wash);
+    background-size: auto;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    opacity: var(--home-sketch-wash-from);
+}
+
+@keyframes home-sketch-wash-build {
+    from {
+        opacity: var(--home-sketch-wash-from);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /*
+     * Match load sequence: tiers at 0 / 280 / 560ms + longest settle ≈ 1.38s → wash peaks with third beat.
+     */
+    html.js-scroll-reveal body.home::before {
+        animation: home-sketch-wash-build 1.94s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline-offset: 2px;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    color: inherit;
+    text-underline-offset: 0.14em;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 9999;
+    padding: 0.75rem 1rem;
+    background: var(--surface-raised);
+    color: var(--text);
+    font-weight: 600;
+    border-radius: 8px;
+    box-shadow: var(--shadow-m);
+}
+
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* —— Site header —— */
+.site-header {
     position: sticky;
     top: 0;
-    background-color: rgba(240, 242, 245, 0.8);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+    z-index: var(--header-z);
+    display: flex;
+    padding: 14px clamp(14px, 3vw, 28px) 16px;
+    background: transparent;
+    border-bottom: none;
 }
 
-.nav-content {
+.site-header:not(.site-header--case) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+
+.site-brand {
+    font-family: var(--font-brand);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-decoration: none;
+    color: var(--text);
+    line-height: 1.25;
+    text-align: center;
+}
+
+.site-brand:hover {
+    color: var(--accent);
+}
+
+/*
+ * Section toggle — liquid glass (Figma-style layered insets + backdrop blur).
+ * Approximates stacked rectangles without mix-blend-mode: plus-lighter (limited support).
+ */
+.section-nav-wrap {
+    width: 75%;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+}
+
+.section-nav--toggle {
+    width: 100%;
+}
+
+.section-nav-shell {
+    position: relative;
+    width: 100%;
+    isolation: isolate;
+    padding-bottom: 6px;
+}
+
+/* Sliding glass thumb (position + size set in JS) */
+.section-nav-thumb {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 300px;
+    pointer-events: none;
+    background: var(--nav-thumb-face);
+    box-shadow: var(--nav-thumb-shadow);
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.section-nav-track {
+    position: relative;
+    z-index: 1;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    min-height: 52px;
+    padding: 8px 10px;
+    border-radius: 300px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    background: var(--liquid-glass-bg);
+    backdrop-filter: var(--liquid-glass-backdrop);
+    -webkit-backdrop-filter: var(--liquid-glass-backdrop);
+    box-shadow: var(--liquid-glass-inset-shadows);
+}
+
+.section-nav-track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Soft outer haze (Rect 10 + translucent lift) — toggle track */
+.section-nav-track::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background: radial-gradient(
+        ellipse 100% 120% at 50% 0%,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(225, 225, 225, 0.22) 42%,
+        transparent 72%
+    );
+    opacity: 0.65;
+    filter: blur(8px);
+}
+
+.section-nav-link {
+    position: relative;
+    z-index: 2;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    text-align: center;
+    padding: 10px clamp(14px, 2.4vw, 22px);
+    min-height: 42px;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-size: clamp(10.75px, 2.35vw, 12.75px);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    -webkit-font-smoothing: antialiased;
+    color: var(--nav-link-color);
+    border: none;
+    border-radius: 300px;
+    background: transparent;
+    box-shadow: none;
+    transition: color 0.2s var(--ease), background 0.2s var(--ease), font-weight 0.2s var(--ease);
+}
+
+.section-nav-label {
+    position: relative;
+    z-index: 1;
+}
+
+.section-nav-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+.section-nav-icon svg {
+    width: 17px;
+    height: 17px;
+    display: block;
+    overflow: visible;
+}
+
+/* Toggle icon hover animations */
+.nav-icon__house {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.nav-icon__block,
+.nav-icon__work-line {
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.nav-icon__person {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+}
+
+.section-nav-link--home:hover .nav-icon__house,
+.section-nav-link--home:focus-visible .nav-icon__house {
+    animation: nav-home-slide-up 0.42s var(--ease) forwards;
+}
+
+.section-nav-link--work:hover .nav-icon__block,
+.section-nav-link--work:hover .nav-icon__work-line,
+.section-nav-link--work:focus-visible .nav-icon__block,
+.section-nav-link--work:focus-visible .nav-icon__work-line {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.section-nav-link--work:hover .nav-icon__block--1,
+.section-nav-link--work:focus-visible .nav-icon__block--1 {
+    animation: nav-work-pop 0.34s var(--ease) forwards;
+}
+
+.section-nav-link--work:hover .nav-icon__block--2,
+.section-nav-link--work:focus-visible .nav-icon__block--2 {
+    animation: nav-work-pop 0.34s var(--ease) 0.08s forwards;
+}
+
+.section-nav-link--work:hover .nav-icon__block--3,
+.section-nav-link--work:focus-visible .nav-icon__block--3 {
+    animation: nav-work-pop 0.34s var(--ease) 0.16s forwards;
+}
+
+.section-nav-link--work:hover .nav-icon__work-line--1,
+.section-nav-link--work:focus-visible .nav-icon__work-line--1 {
+    animation: nav-work-pop 0.34s var(--ease) 0.24s forwards;
+}
+
+.section-nav-link--work:hover .nav-icon__work-line--2,
+.section-nav-link--work:focus-visible .nav-icon__work-line--2 {
+    animation: nav-work-pop 0.34s var(--ease) 0.32s forwards;
+}
+
+.section-nav-link--contact:hover .section-nav-icon--contact svg,
+.section-nav-link--contact:focus-visible .section-nav-icon--contact svg {
+    animation: nav-icon-pulse 0.48s var(--ease);
+}
+
+.section-nav-link--about:hover .nav-icon__person,
+.section-nav-link--about:focus-visible .nav-icon__person {
+    animation: nav-about-wave 0.6s ease-in-out 5 forwards;
+}
+
+@keyframes nav-home-slide-up {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes nav-work-pop {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.14);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes nav-icon-pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+@keyframes nav-about-wave {
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-11deg);
+    }
+
+    75% {
+        transform: rotate(11deg);
+    }
+}
+
+.section-nav-link--work:not(:hover):not(:focus-visible) .nav-icon__block,
+.section-nav-link--work:not(:hover):not(:focus-visible) .nav-icon__work-line {
+    animation: none;
+    transform: none;
+    opacity: 1;
+}
+
+.section-nav-link--contact:not(:hover):not(:focus-visible) .section-nav-icon--contact svg {
+    animation: none;
+    transform: none;
+}
+
+.section-nav-link--about:not(:hover):not(:focus-visible) .nav-icon__person {
+    animation: none;
+    transform: none;
+}
+
+.section-nav-link:not([aria-current="true"]):hover {
+    color: var(--nav-link-hover-color);
+    background: var(--nav-link-hover-bg);
+    box-shadow: var(--nav-link-hover-shadow);
+}
+
+.section-nav-link:not([aria-current="true"]):focus-visible {
+    outline: none;
+    color: var(--nav-link-hover-color);
+    background: var(--nav-link-hover-bg);
+    box-shadow:
+        var(--nav-link-hover-shadow),
+        0 0 0 2px rgba(61, 82, 217, 0.45);
+}
+
+.section-nav-link[aria-current="true"] {
+    color: var(--nav-link-active-color);
+    font-weight: 700;
+    background: transparent;
+    box-shadow: none;
+}
+
+.section-nav-link[aria-current="true"]:hover {
+    background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section-nav-link {
+        transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .section-nav-thumb {
+        transition: none;
+    }
+
+    .nav-icon__house,
+    .nav-icon__block,
+    .nav-icon__work-line,
+    .nav-icon__person,
+    .section-nav-icon--contact svg {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    body {
+        background-image: var(--canvas-mesh);
+        background-size: auto;
+        background-position: 0 0;
+        background-attachment: fixed;
+    }
+
+    body.home {
+        background-image: var(--canvas-mesh);
+        background-size: auto;
+        background-position: 0 0;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+    }
+
+    body.home::before {
+        display: none;
+    }
+
+    .section-nav-track {
+        background: rgba(248, 249, 252, 0.94);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .hero-panel::before,
+    .hero-panel::after,
+    .section-surface::before,
+    .section-surface::after,
+    .contact-panel::before,
+    .contact-panel::after,
+    .about-panel::before,
+    .about-panel::after,
+    .cap-card::before,
+    .cap-card::after,
+    .hero-panel,
+    .cap-card,
+    .about-panel,
+    .contact-panel,
+    .section-surface,
+    .case-hero-panel {
+        background: var(--surface-raised);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* —— Layout —— */
+.shell-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 36px) 64px;
+}
+
+/* Panel entrance — from below viewport + slight overscale “settling in” (load + scroll) */
+@media (prefers-reduced-motion: no-preference) {
+    html.js-scroll-reveal [data-load-reveal]:not(.is-revealed),
+    html.js-scroll-reveal [data-scroll-reveal]:not(.is-revealed) {
+        opacity: 0;
+        transform: translate3d(0, min(94vh, 820px), 0) scale(1.09);
+        transform-origin: 50% 92%;
+        will-change: transform, opacity;
+    }
+
+    html.js-scroll-reveal [data-load-reveal].is-revealed,
+    html.js-scroll-reveal [data-scroll-reveal].is-revealed {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        transition:
+            opacity 1.28s cubic-bezier(0.18, 1, 0.32, 1),
+            transform 1.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-load-reveal],
+    [data-scroll-reveal] {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+        will-change: auto !important;
+    }
+
+    body.home::before {
+        opacity: 1;
+        animation: none !important;
+    }
+}
+
+.shell-main > section {
+    scroll-margin-top: var(--header-offset);
+}
+
+body.home section#hero {
+    margin-top: 0;
+}
+
+body.home .shell-main > section {
+    scroll-margin-top: calc(max(14px, env(safe-area-inset-top, 0px)) + 4.25rem);
+}
+
+body.home .hero-nav-slot {
+    position: sticky;
+    top: max(14px, env(safe-area-inset-top));
+    z-index: var(--header-z);
+}
+
+body.home #main.shell-main {
+    position: relative;
+    z-index: 1;
+}
+
+/* Homepage: sticky section toggle above hero */
+.hero-nav-slot {
+    width: 100%;
+    margin-bottom: clamp(12px, 2.2vw, 18px);
+}
+
+.hero-nav-slot .section-nav-wrap {
+    width: 50%;
+    max-width: 50%;
+    margin-left: 0;
+    margin-right: auto;
+    align-self: auto;
+}
+
+/* Hero-style bright frost — profile card + main content shells + nested glass cards */
+.hero-panel,
+.section-surface,
+.contact-panel,
+.about-panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: var(--hero-frost-bg);
+    backdrop-filter: var(--hero-frost-backdrop);
+    -webkit-backdrop-filter: var(--hero-frost-backdrop);
+    border: var(--hero-frost-border);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--hero-frost-shadow);
+}
+
+/* Soft lift under frost face — position shifts slightly with tilt */
+.hero-panel::before,
+.section-surface::before,
+.contact-panel::before,
+.about-panel::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--frost-floor-top);
+    bottom: var(--frost-floor-bottom);
+    border-radius: var(--radius-panel);
+    background: #0f1218;
+    opacity: 0.09;
+    filter: blur(24px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Specular / edge highlight — angle follows --frost-spec-angle */
+.hero-panel::after,
+.section-surface::after,
+.contact-panel::after,
+.about-panel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background: var(--frost-spec-gradient);
+    opacity: var(--frost-spec-opacity);
+}
+
+.hero-panel > *,
+.section-surface > *,
+.contact-panel > *,
+.about-panel > * {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-panel {
+    padding: clamp(26px, 5vw, 44px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+}
+
+/* Frost “viewing angle” — distinct fill + spec directions per shell */
+.frost-tilt--hero {
+    --frost-fill-angle: 156deg;
+    --frost-fill-mid: 48%;
+    --frost-spec-angle: 118deg;
+    --frost-spec-opacity: 0.82;
+    --frost-floor-top: 16%;
+    --frost-floor-bottom: -16%;
+}
+
+.frost-tilt--caps-shell {
+    --frost-fill-angle: 238deg;
+    --frost-fill-mid: 36%;
+    --frost-spec-angle: -32deg;
+    --frost-spec-opacity: 0.8;
+    --frost-floor-top: 30%;
+    --frost-floor-bottom: -8%;
+}
+
+.frost-tilt--work-shell {
+    --frost-fill-angle: 52deg;
+    --frost-fill-mid: 55%;
+    --frost-spec-angle: 202deg;
+    --frost-spec-opacity: 0.83;
+    --frost-floor-top: 12%;
+    --frost-floor-bottom: -18%;
+}
+
+.frost-tilt--contact {
+    --frost-fill-angle: 312deg;
+    --frost-fill-mid: 40%;
+    --frost-spec-angle: 68deg;
+    --frost-spec-opacity: 0.78;
+    --frost-floor-top: 26%;
+    --frost-floor-bottom: -14%;
+}
+
+.frost-tilt--experience {
+    --frost-fill-angle: 178deg;
+    --frost-fill-mid: 46%;
+    --frost-spec-angle: -12deg;
+    --frost-spec-opacity: 0.81;
+    --frost-floor-top: 22%;
+    --frost-floor-bottom: -12%;
+}
+
+.frost-tilt--about {
+    --frost-fill-angle: 98deg;
+    --frost-fill-mid: 44%;
+    --frost-spec-angle: 278deg;
+    --frost-spec-opacity: 0.84;
+    --frost-floor-top: 20%;
+    --frost-floor-bottom: -11%;
+}
+
+@media (min-width: 720px) {
+    .hero-panel {
+        grid-template-columns: auto 1fr;
+        gap: clamp(28px, 5vw, 48px);
+        align-items: start;
+    }
+}
+
+.hero-avatar {
+    position: relative;
+    justify-self: start;
+}
+
+.avatar-glass-ring {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    padding: 4px;
+    background: var(--avatar-ring);
+    box-shadow: var(--shadow-lift), 0 0 0 12px rgba(255, 255, 255, 0.38) inset;
+}
+
+.avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+    border: 2px solid #fff;
+    background: var(--surface);
+}
+
+.avatar-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 36%;
+    transform: scale(1.16);
+}
+
+.kicker {
+    font-family: var(--font-display);
+    font-size: clamp(1.35rem, 4vw, 1.75rem);
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+}
+
+.hero-headlines h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.85rem, 4.8vw, 2.65rem);
+    letter-spacing: -0.035em;
+    line-height: 1.12;
+    /* Letterpress/deboss — reads carved into frost; not clickable like pill CTAs */
+    color: var(--hero-title-color);
+    text-shadow: var(--hero-title-shadow);
+    margin-bottom: 16px;
+}
+
+.hero-intro {
+    font-size: clamp(14px, 2.5vw, 16px);
+    color: var(--text);
+    opacity: 0.92;
+    max-width: 56ch;
+    margin-bottom: 22px;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     align-items: center;
 }
 
-.logo {
+.section-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.section-lede {
+    color: var(--text-muted);
+    max-width: 56ch;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+.section-block {
+    margin-top: var(--section-gap);
+}
+
+.home-closing-grid {
+    margin-top: var(--section-gap);
+    display: grid;
+    gap: var(--section-pair-gap);
+    grid-template-columns: 1fr;
+}
+
+.home-closing-grid .section-block--pair {
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.home-closing-grid .section-block--pair > .about-panel,
+.home-closing-grid .section-block--pair > .contact-panel {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+}
+
+.home-closing-grid .contact-panel .contact-actions {
+    margin-top: 22px;
+}
+
+.contact-form {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-height: 0;
+    margin-top: 18px;
+}
+
+.contact-form-fields {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr;
+}
+
+.contact-form-field label,
+.contact-form-compose > label {
+    display: block;
+    margin-bottom: 6px;
+    font-family: "Inter", var(--font-body);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--text-soft);
+}
+
+.contact-form-required {
+    color: var(--accent);
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    font-family: "Inter", var(--font-body);
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--text);
+    border: none;
+    border-radius: 14px;
+    padding: 11px 14px;
+    background: var(--pill-inset-face);
+    box-shadow: var(--pill-inset-relaxed);
+    transition: box-shadow 0.2s var(--ease), background 0.2s var(--ease);
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: var(--text-soft);
+    opacity: 0.85;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    background: var(--hero-frost-bg);
+    box-shadow:
+        inset 4px 4px 9px rgba(20, 23, 34, 0.14),
+        inset -2px -2px 7px rgba(255, 255, 255, 0.92),
+        0 0 0 2px rgba(61, 82, 217, 0.35);
+}
+
+.contact-form input:invalid:not(:placeholder-shown):not(:focus) {
+    box-shadow:
+        var(--pill-inset-relaxed),
+        0 0 0 1px rgba(224, 80, 80, 0.45);
+}
+
+.contact-form-compose {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: clamp(140px, 22vh, 240px);
+}
+
+.contact-form-compose textarea {
+    flex: 1 1 auto;
+    min-height: 100px;
+    resize: none;
+}
+
+.contact-form-send {
+    margin-top: 10px;
+    align-self: flex-start;
+}
+
+@media (min-width: 960px) {
+    .home-closing-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: stretch;
+    }
+}
+
+/* Glass shell for section title + grid (capabilities, work) — frost matches hero panel */
+.section-surface {
+    padding: clamp(22px, 4vw, 36px);
+}
+
+.section-surface > .section-title {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+#work .section-surface > .section-title {
+    margin-bottom: 0;
+}
+
+#work .section-surface.frost-tilt--work-shell {
+    padding-top: clamp(10px, 1.8vw, 16px);
+    padding-bottom: clamp(12px, 2.2vw, 20px);
+    padding-inline: clamp(16px, 3.2vw, 28px);
+}
+
+.contact-panel > .section-title:first-child,
+.about-panel > .section-title:first-child {
+    margin-top: 0;
+    margin-bottom: 16px;
+}
+
+/* Cards grid — elev-1 default */
+.card-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 700px) {
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+    }
+}
+
+.cap-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    /* Local floor anchor so tiles don’t inherit the large shell vignette extents */
+    --frost-floor-top: 26%;
+    --frost-floor-bottom: -13%;
+    background: var(--hero-frost-bg);
+    backdrop-filter: var(--hero-frost-backdrop);
+    -webkit-backdrop-filter: var(--hero-frost-backdrop);
+    border: var(--hero-frost-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--frost-tile-shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+}
+
+.cap-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--frost-floor-top);
+    bottom: var(--frost-floor-bottom);
+    border-radius: inherit;
+    background: #0f1218;
+    opacity: 0.048;
+    filter: blur(24px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cap-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background: var(--frost-spec-gradient);
+    opacity: var(--frost-spec-opacity);
+}
+
+.cap-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Competency tiles: each card catches light from a slightly different tilt */
+.cap-card:nth-child(3n + 1) {
+    --frost-fill-angle: 212deg;
+    --frost-spec-angle: 160deg;
+    --frost-fill-mid: 38%;
+}
+
+.cap-card:nth-child(3n + 2) {
+    --frost-fill-angle: 74deg;
+    --frost-spec-angle: -24deg;
+    --frost-fill-mid: 50%;
+}
+
+.cap-card:nth-child(3n + 3) {
+    --frost-fill-angle: 298deg;
+    --frost-spec-angle: 44deg;
+    --frost-spec-opacity: 0.79;
+    --frost-fill-mid: 42%;
+}
+
+.cap-card__head {
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
-.logo-box {
-    background-color: var(--accent-blue);
-    color: var(--white);
-    font-family: var(--plus-jakarta);
-    font-weight: 800;
-    font-size: 20px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-}
-
-.logo-text {
-    font-family: var(--plus-jakarta);
-    text-transform: lowercase;
-    font-size: 22px;
-    color: var(--accent-blue);
-    font-weight: 700;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 32px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-weight: 500;
-    font-size: 16px;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: var(--text-primary);
-}
-
-/* Hero */
-.hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 100px 0;
-    gap: 60px;
-}
-
-.hero-text {
-    flex: 1;
-}
-
-.hero h1 {
-    font-family: var(--plus-jakarta);
-    font-size: 64px;
-    font-weight: 800;
-    line-height: 1.1;
-    margin-bottom: 32px;
-    letter-spacing: -0.02em;
-}
-
-.hero-intro {
-    font-size: 24px;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    max-width: 700px;
-}
-
-.hero-details {
-    font-size: 18px;
-    color: var(--text-secondary);
-    margin-bottom: 40px;
-    max-width: 700px;
-}
-
-.hero-intro strong,
-.hero-details strong {
-    color: var(--text-primary);
-    font-weight: 600;
-}
-
-.hero-actions {
-    display: flex;
-    gap: 16px;
-}
-
-.hero-image {
-    flex: 0 0 450px;
-}
-
-.hero-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 40px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Buttons */
-.btn {
-    display: inline-block;
-    padding: 16px 32px;
-    border-radius: 12px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-}
-
-.btn-primary {
-    background-color: #1A1A1A;
-    color: var(--white);
-}
-
-.btn-primary:hover {
-    background-color: #333;
-    transform: translateY(-2px);
-}
-
-.btn-secondary {
-    background-color: #e5e7eb;
-    color: var(--text-primary);
-}
-
-.btn-secondary:hover {
-    background-color: #d1d5db;
-    transform: translateY(-2px);
-}
-
-.btn-gold {
-    background-color: var(--accent-gold);
-    color: var(--text-primary);
-}
-
-.btn-gold:hover {
-    background-color: #e6c200;
-    transform: scale(1.05);
-}
-
-/* Work Section */
-.work-section {
-    padding: 80px 0;
-}
-
-.section-title {
-    font-family: var(--plus-jakarta);
-    font-size: 48px;
-    text-align: center;
-    margin-bottom: 60px;
-    letter-spacing: -0.01em;
-}
-
-.project-grid {
+.cap-icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 40px;
+    place-items: center;
+    border-radius: 12px;
+    color: var(--accent);
+    background: linear-gradient(
+        145deg,
+        rgba(61, 82, 217, 0.12) 0%,
+        rgba(224, 107, 203, 0.08) 55%,
+        rgba(61, 217, 168, 0.1) 100%
+    );
+    border: 1px solid var(--border-subtle);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 1px 2px rgba(20, 23, 34, 0.04);
 }
 
-.project-card {
-    background-color: var(--card-bg);
-    border-radius: 32px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    cursor: pointer;
+.cap-icon svg {
+    width: 22px;
+    height: 22px;
+    display: block;
 }
 
-.project-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+.cap-card:hover {
+    box-shadow: var(--frost-tile-shadow-hover);
 }
 
-.card-image {
+@media (prefers-reduced-motion: reduce) {
+    .cap-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .cap-card:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.cap-card__head h3 {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(1.22rem, 2.8vw, 1.42rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.cap-card p {
+    font-size: clamp(14px, 1.8vw, 16px);
+    color: var(--text-muted);
+    flex-grow: 1;
+}
+
+/* Featured work — CSS MacBook (closed lid → opens to reveal display) */
+.work-macbook-showcase {
+    /* Frame's min-height now tracks laptop height tightly — no negative pull
+     * needed (and it would just overlap the title). */
+    margin-top: 0;
+}
+
+.work-macbook-stage {
+    perspective: 1800px;
+    perspective-origin: 50% 92%;
+    padding: 0 0 clamp(12px, 2.4vw, 22px);
+    filter: drop-shadow(0 28px 48px rgba(8, 12, 24, 0.14)) drop-shadow(0 6px 16px rgba(8, 12, 24, 0.08));
+}
+
+.work-macbook__carousel-shell {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(10px, 2.5vw, 28px);
     width: 100%;
-    height: 300px;
-    background-color: #f3f4f6;
-    overflow: hidden;
+    max-width: 1120px;
+    margin-inline: auto;
 }
 
-.card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.project-card:hover .card-image img {
-    transform: scale(1.05);
-}
-
-.card-content {
-    padding: 32px;
-}
-
-.card-content h3 {
-    font-family: var(--plus-jakarta);
-    font-size: 24px;
-    margin-bottom: 12px;
-}
-
-.card-content p {
-    color: var(--text-secondary);
-    font-size: 17px;
-    margin-bottom: 24px;
-}
-
-.view-link {
-    text-decoration: none;
-    color: var(--white);
-    background-color: #1A1A1A;
-    padding: 8px 24px;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 15px;
-    display: inline-block;
-}
-
-/* Footer Banner */
-.footer-banner {
-    background-color: var(--accent-blue);
-    padding: 100px 0 60px;
-    color: var(--white);
-    text-align: center;
-    margin-top: 100px;
-}
-
-.footer-content h2 {
-    font-family: var(--plus-jakarta);
-    font-size: 56px;
-    margin-bottom: 24px;
-}
-
-.footer-content p {
-    font-size: 20px;
-    max-width: 600px;
-    margin: 0 auto 40px;
-    opacity: 0.9;
-}
-
-.social-links {
+.work-macbook__chev {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 24px;
-    margin-top: 60px;
-    margin-bottom: 40px;
+    flex-shrink: 0;
+    width: clamp(42px, 5.2vw, 54px);
+    height: clamp(42px, 5.2vw, 54px);
+    padding: 0;
+    border-radius: 999px;
+    border: none;
+    background: var(--pill-inset-face);
+    color: var(--text);
+    cursor: pointer;
+    box-shadow: var(--pill-inset-relaxed);
+    transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease), background 0.18s var(--ease);
 }
 
-.social-links a img {
-    width: 32px;
-    filter: invert(1);
+.work-macbook__chev svg {
+    flex-shrink: 0;
 }
 
-.copyright {
-    font-size: 14px;
+@media (prefers-reduced-motion: no-preference) {
+    .work-macbook__chev:hover {
+        box-shadow: none;
+        background: var(--hero-frost-bg);
+    }
+
+    .work-macbook__chev:active {
+        transform: translateY(-0.5px) scale(0.98);
+        box-shadow:
+            inset 4px 4px 9px rgba(20, 23, 34, 0.15),
+            inset -2px -2px 7px rgba(255, 255, 255, 0.9);
+    }
+}
+
+.work-macbook__chev:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.work-macbook__rig {
+    min-width: 0;
+    width: 100%;
+    max-width: 1420px;
+    margin: 0 auto;
+}
+
+.work-macbook__frame {
+    position: relative;
+    width: 100%;
+    /* Reserve canvas for open lid (absolute hardware does not inflate flow height).
+     * The laptop's actual rendered top sits ~570px above the frame bottom on
+     * desktop (shell-main caps at 1100px, then chevs/gaps shrink the rig) and
+     * scales down with viewport. This formula hugs that real top edge so no
+     * empty section background is reserved above the open lid. */
+    min-height: clamp(380px, calc(55vw - 25px), 580px);
+    padding-bottom: clamp(16px, 2.6vw, 32px);
+}
+
+.work-macbook__unit {
+    position: relative;
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .work-macbook__unit--open.work-macbook__unit--lift .work-macbook__hardware-inner {
+        transform: translateZ(18px) rotateX(2.4deg);
+    }
+}
+
+.work-macbook__hardware {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(48px, 8.5vw, 84px);
+    translate: -50% 0;
+    z-index: 2;
+    width: min(1360px, 99%);
+}
+
+.work-macbook__hardware-inner {
+    transform-style: preserve-3d;
+    transform-origin: 50% 100%;
+    transition:
+        transform 1.7s cubic-bezier(0.22, 1, 0.18, 1),
+        visibility 0s;
+}
+
+/* Lid hinge: starts shut (flat sliver atop the deck), then unfolds upward.
+ * Lid is noticeably narrower than the deck so the screen reads as recessed
+ * behind the front-facing keyboard base — like a real MacBook Pro. */
+.work-macbook__lid-rise {
+    transform-origin: 50% 100%;
+    transform: scaleY(0.04);
+    transition: transform 1.65s cubic-bezier(0.22, 1, 0.18, 1);
+    overflow: visible;
+    width: 87%;
+    margin: 0 auto;
+}
+
+.work-macbook__unit--open .work-macbook__lid-rise {
+    transform: scaleY(1);
+}
+
+/* Lid metal — Space Gray MacBook Pro chassis (matches the deck) */
+.work-macbook__lid-midnight {
+    padding: clamp(5px, 0.75vw, 8px);
+    padding-bottom: 0;
+    background:
+        radial-gradient(140% 80% at 50% -10%, rgba(255, 255, 255, 0.22) 0%, transparent 60%),
+        linear-gradient(
+            180deg,
+            #7c7c7e 0%,
+            #6a6a6c 55%,
+            #565658 100%
+        );
+    border-radius: clamp(22px, 3.4vw, 30px) clamp(22px, 3.4vw, 30px) clamp(6px, 1vw, 9px)
+        clamp(6px, 1vw, 9px);
+    box-shadow:
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+        0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Bezel — deep, matte black (matches the camera-notch tone) */
+.work-macbook__bezel-black {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+    border-radius: clamp(14px, 2.1vw, 18px);
+    /* Thin black frame; top band leaves room for menu-bar + notch */
+    padding: clamp(4px, 0.6vw, 6px);
+    padding-top: clamp(10px, 1.45vw, 14px);
+    background:
+        radial-gradient(ellipse 120% 50% at 50% -4%, rgba(255, 255, 255, 0.05), transparent 58%),
+        linear-gradient(
+            180deg,
+            #0a0a0c 0%,
+            #040406 100%
+        );
+    border: 0.6px solid #15151a;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.55);
+}
+
+/* MacBook Pro–style camera notch — fused to top of bezel, same matte black */
+.work-macbook__camera-notch {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    translate: -50% 0;
+    z-index: 5;
+    width: clamp(78px, 12.5vw, 104px);
+    height: clamp(14px, 2.1vw, 18px);
+    border-radius: 0 0 9px 9px;
+    pointer-events: none;
+    background: linear-gradient(180deg, #060608 0%, #020203 100%);
+    box-shadow:
+        inset 0 -1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.work-macbook__glass-sheen {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 2;
+    background: linear-gradient(
+        118deg,
+        transparent 36%,
+        rgba(255, 255, 255, 0.04) 46%,
+        rgba(255, 255, 255, 0.16) 50%,
+        rgba(255, 255, 255, 0.04) 54%,
+        transparent 62%
+    );
+    mix-blend-mode: soft-light;
+    opacity: 0;
+    /* Sheen appears only once boot has finished and slide content is visible. */
+    transition: opacity 1.1s cubic-bezier(0.18, 1, 0.32, 1) 1.65s;
+}
+
+.work-macbook__unit--open .work-macbook__glass-sheen {
+    opacity: 1;
+}
+
+.work-macbook__display {
+    position: relative;
+    z-index: 0;
+    flex: 0 0 auto;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    border-radius: clamp(6px, 0.9vw, 9px);
+    overflow: hidden;
+    /* Screen "off" state — turns white once the boot Apple logo finishes its
+     * flash, mimicking the moment a real MacBook hands off from boot to OS.
+     * The inset white highlight only appears once the screen is white;
+     * otherwise it shows as a stark line against the black boot background. */
+    background: #000;
+    box-shadow: 0 0 0 0.6px rgba(0, 0, 0, 0.55);
+    opacity: 1;
+    transition: background-color 0.55s cubic-bezier(0.18, 1, 0.32, 1) 1.5s;
+}
+
+.work-macbook__unit--open .work-macbook__display {
+    background-color: var(--case-zoom-cover);
+    /* No inset white highlight — it would bleed through while the boot peach
+     * is still fading, creating a visible white stripe against the black screen. */
+}
+
+.work-macbook__slides {
+    position: relative;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+    /* Horizontal carousel track: each slide is 100% wide; JS translates the
+     * track by -idx*100% so slides slide in/out like a macOS spaces swipe.
+     * Hidden during boot, fades in once the Apple logo finishes. */
+    display: flex;
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+    transition:
+        opacity 0.5s ease,
+        transform 0.55s cubic-bezier(0.22, 1, 0.18, 1);
+    will-change: transform;
+}
+
+.work-macbook__unit--open .work-macbook__slides {
+    opacity: 1;
+    transition:
+        opacity 0.5s ease 1.6s,
+        transform 0.55s cubic-bezier(0.22, 1, 0.18, 1);
+}
+
+/* —— Boot overlay (Apple logo) ——
+ * Sits on top of the slides while the screen is "booting", flashes the Apple
+ * mark, and fades out as the slide content reveals underneath. */
+.work-macbook__boot {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    /* screen blend: black pixels in the peach image are mathematically
+     * transparent, so the dark surrounding field never overlaps slide content
+     * — even during the brief moment both layers are simultaneously visible. */
+    mix-blend-mode: screen;
+}
+
+.work-macbook__unit--open .work-macbook__boot {
+    animation: macbook-boot-flash 1.5s 0.4s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes macbook-boot-flash {
+    0%   { opacity: 0; }
+    27%  { opacity: 1; }
+    73%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.work-macbook__boot-mark {
+    /* Image is 192x192 with the peach occupying ~62% of width — sized so the
+     * visible peach mark matches (and stays slightly under) the previous
+     * Apple silhouette's 28–42px width. The surrounding glow + black field
+     * blend into the boot screen's black background. */
+    width: clamp(44px, 5.6vw, 64px);
+    height: auto;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+/* Deck — full-width keyboard base (sibling of lid).
+ * Wider than the lid above it so the screen reads as recessed behind the front edge.
+ * Space Gray MacBook Pro chassis with a brighter mid-band front bevel catching light. */
+.work-macbook__deck-midnight {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin-top: clamp(-3px, -0.4vw, -1px);
+    height: clamp(22px, 3.85vw, 32px);
+    border-radius: 0 0 clamp(22px, 3.6vw, 32px) clamp(22px, 3.6vw, 32px) /
+        0 0 clamp(10px, 1.6vw, 16px) clamp(10px, 1.6vw, 16px);
+    background: linear-gradient(
+        180deg,
+        #5e5e60 0%,
+        #6e6e70 24%,
+        #828284 68%,
+        #5a5a5c 100%
+    );
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -2px 4px rgba(255, 255, 255, 0.18),
+        inset 0 -10px 14px rgba(0, 0, 0, 0.18),
+        0 16px 36px rgba(0, 0, 0, 0.22),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.work-macbook__deck-notch {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(1px, 0.3vw, 3px);
+    translate: -50% 0;
+    width: clamp(120px, 22vw, 168px);
+    height: clamp(10px, 1.85vw, 13px);
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow:
+        inset 0 2px 4px rgba(0, 0, 0, 0.45),
+        0 -0.5px 0 rgba(255, 255, 255, 0.35);
+    background:
+        radial-gradient(ellipse 100% 100% at 50% 72%, transparent 58%, rgba(0, 0, 0, 0.4) 100%),
+        linear-gradient(
+            180deg,
+            #4d4d4f,
+            #3c3c3e 100%
+        );
+}
+
+.work-macbook__deck-foot {
+    position: absolute;
+    bottom: clamp(-5px, -0.7vw, -3px);
+    width: clamp(30px, 5.5vw, 48px);
+    height: clamp(8px, 1.7vw, 11px);
+    border-radius: 4px;
+    background:
+        radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.22), transparent 72%),
+        linear-gradient(180deg, #5a5a5c, #3a3a3c);
     opacity: 0.7;
 }
 
-/* Responsive */
-@media (max-width: 968px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 60px 0;
+.work-macbook__deck-foot--l {
+    left: clamp(22px, 4.2vw, 50px);
+}
+
+.work-macbook__deck-foot--r {
+    right: clamp(22px, 4.2vw, 50px);
+}
+
+.work-macbook-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 0;
+    height: 100%;
+    outline: none;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.work-macbook-slide.is-active {
+    pointer-events: auto;
+}
+
+.work-macbook__screen-grid {
+    display: grid;
+    grid-template-columns: minmax(152px, 36%) minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    gap: clamp(14px, 2.6vw, 26px);
+    align-items: stretch;
+    box-sizing: border-box;
+    padding: clamp(14px, 2.4vw, 22px);
+    min-height: 100%;
+    height: 100%;
+}
+
+.work-macbook__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+    min-height: 0;
+    text-align: left;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.work-macbook__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+.work-macbook__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 2px;
+}
+
+.work-macbook__line {
+    font-size: clamp(13px, 1.85vw, 14px);
+    color: var(--text-muted);
+    line-height: 1.52;
+}
+
+.work-macbook__line strong {
+    color: var(--text);
+}
+
+.work-macbook__cta {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+.work-macbook__visual {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #eef0f5;
+    min-height: clamp(196px, 30vw, 268px);
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.work-macbook__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.work-macbook__visual--paradigm {
+    background: #f7f4ef;
+}
+
+.work-macbook__visual--paradigm img {
+    object-fit: contain;
+    transform: scale(0.93);
+}
+
+.work-macbook__visual--radioactive {
+    background: var(--radioactive-frame);
+}
+
+.work-macbook__visual--radioactive img {
+    object-fit: contain;
+    transform: scale(0.92);
+    object-position: center 8%;
+}
+
+.work-macbook-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.work-macbook-dot {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: rgba(20, 23, 34, 0.16);
+    cursor: pointer;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.work-macbook-dot:hover {
+    background: rgba(20, 23, 34, 0.28);
+}
+
+.work-macbook-dot.is-active {
+    background: var(--text);
+    transform: scale(1.12);
+    box-shadow: 0 0 0 3px rgba(61, 82, 217, 0.16);
+}
+
+.work-macbook-dot:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+.tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.86);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+@media (max-width: 719px) {
+    .work-macbook-stage {
+        perspective: none;
+        filter: drop-shadow(0 18px 32px rgba(12, 14, 22, 0.12));
     }
 
-    .hero h1 {
-        font-size: 48px;
+    .work-macbook__carousel-shell {
+        gap: 8px;
     }
 
-    .hero-image {
-        flex: 0 0 auto;
-        width: 100%;
-        max-width: 400px;
+    .work-macbook__chev {
+        width: 38px;
+        height: 38px;
     }
 
-    .hero-actions {
+    .work-macbook__lid-rise {
+        transform: scaleY(1) !important;
+        transition: none !important;
+    }
+
+    .work-macbook__hardware-inner {
+        transform: none !important;
+    }
+
+    .work-macbook__display {
+        opacity: 1;
+        background-color: var(--case-zoom-cover) !important;
+        transition: none !important;
+    }
+
+    .work-macbook__slides {
+        opacity: 1 !important;
+    }
+
+    .work-macbook__boot {
+        display: none !important;
+    }
+
+    .work-macbook__glass-sheen {
+        opacity: 0.68;
+        transition: none;
+    }
+
+    .work-macbook__screen-grid {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .work-macbook__visual {
+        min-height: 200px;
+        order: -1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .work-macbook__lid-rise {
+        transform: scaleY(1) !important;
+        transition: none !important;
+    }
+
+    .work-macbook__hardware-inner {
+        transform: none !important;
+    }
+
+    .work-macbook__display {
+        opacity: 1;
+        background-color: var(--case-zoom-cover) !important;
+        transition: none !important;
+    }
+
+    .work-macbook__slides {
+        opacity: 1 !important;
+        transition: transform 0s !important;
+    }
+
+    .work-macbook__boot {
+        display: none !important;
+    }
+
+    .work-macbook__glass-sheen {
+        opacity: 0.55;
+        transition: none;
+    }
+
+    .work-macbook__unit {
+        transition: none;
+    }
+}
+
+@media (scripting: none) {
+    .work-macbook__lid-rise {
+        transform: scaleY(1);
+        transition: none;
+    }
+
+    .work-macbook__display {
+        opacity: 1;
+        background-color: var(--case-zoom-cover);
+    }
+
+    .work-macbook__slides {
+        opacity: 1;
+    }
+
+    .work-macbook__boot {
+        display: none;
+    }
+
+    .work-macbook__glass-sheen {
+        opacity: 0.62;
+    }
+}
+
+.about-panel {
+    padding: clamp(22px, 4vw, 34px);
+}
+
+.about-panel p {
+    margin-bottom: 14px;
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.about-panel p:last-child {
+    margin-bottom: 0;
+}
+
+/* —— About map: three liquid-glass country shapes —— */
+.about-map {
+    margin-top: clamp(18px, 3vw, 26px);
+}
+
+.about-map__row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: clamp(14px, 2.6vw, 26px);
+    padding: clamp(10px, 1.6vw, 18px) clamp(8px, 1.4vw, 14px) clamp(14px, 2vw, 22px);
+}
+
+/* Each country is a button so it's keyboard / pointer interactive */
+.country {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.country:focus { outline: none; }
+
+.country__svg {
+    width: 100%;
+    height: clamp(110px, 14vw, 170px);
+    display: block;
+    overflow: visible;
+    transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.28, 1),
+        filter   0.4s ease;
+    transform-origin: center 60%;
+    /* baseline soft ground shadow under each country */
+    filter: drop-shadow(0 6px 14px rgba(20, 23, 34, 0.12));
+}
+
+/*
+ * The HTML node clipped to the country path.  Mirrors the section-nav-track:
+ *   - subtle white wash
+ *   - real backdrop-filter blur of whatever sits behind the about panel
+ *   - layered inset shadows that read as glass thickness
+ * Because <foreignObject> children layout in normal CSS pixels, this stretches
+ * to the full SVG viewBox and the clip-path crops it to the country silhouette.
+ */
+.country__glass {
+    width: 100%;
+    height: 100%;
+    background: var(--liquid-glass-bg);
+    backdrop-filter: var(--liquid-glass-backdrop);
+    -webkit-backdrop-filter: var(--liquid-glass-backdrop);
+    box-shadow: var(--liquid-glass-inset-shadows);
+    border-radius: 0;
+}
+
+/* Faux highlight gradient layered on top of the glass for a wet-light feel */
+.country__sheen {
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.55;
+}
+
+/* Hand-sketched outline — slightly warm ink, rounded joins */
+.country__outline {
+    fill: none;
+    stroke: rgba(20, 23, 34, 0.55);
+    stroke-width: 1.1;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+/* Pin */
+.pin { color: var(--accent); pointer-events: none; }
+.pin__ring  { fill: rgba(61, 82, 217, 0.16); stroke: var(--accent); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; transition: transform 0.35s cubic-bezier(0.22, 1, 0.28, 1); }
+.pin__dot   { fill: var(--accent);                                    transform-box: fill-box; transform-origin: center; transition: transform 0.35s cubic-bezier(0.22, 1, 0.28, 1); }
+.pin__pulse { fill: none; stroke: var(--accent); stroke-width: 1.1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+
+.country__label {
+    font-family: var(--font-body);
+    font-size: clamp(11px, 1.2vw, 13px);
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.01em;
+    transition: color 0.25s ease;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.country__label em {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Active / hover state on the country */
+@media (prefers-reduced-motion: no-preference) {
+    .country:hover .country__svg,
+    .country:focus-visible .country__svg,
+    .country.is-active .country__svg {
+        transform: translateY(-4px) scale(1.04);
+        filter: drop-shadow(0 16px 32px rgba(61, 82, 217, 0.22));
+    }
+
+    .country:hover .country__outline,
+    .country:focus-visible .country__outline,
+    .country.is-active .country__outline {
+        stroke: rgba(61, 82, 217, 0.85);
+        stroke-width: 1.4;
+    }
+
+    .country:hover .pin__ring,
+    .country:focus-visible .pin__ring,
+    .country.is-active .pin__ring { transform: scale(1.5); }
+
+    .country:hover .pin__dot,
+    .country:focus-visible .pin__dot,
+    .country.is-active .pin__dot { transform: scale(1.25); }
+
+    .country:hover .pin__pulse,
+    .country:focus-visible .pin__pulse,
+    .country.is-active .pin__pulse {
+        opacity: 1;
+        animation: country-pulse 1.9s ease-out infinite;
+    }
+}
+
+.country:hover .country__label,
+.country:focus-visible .country__label,
+.country.is-active .country__label { color: var(--text); }
+
+.country:focus-visible .country__svg {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
+    border-radius: 12px;
+}
+
+@keyframes country-pulse {
+    0%   { transform: scale(0.7); opacity: 0.8; }
+    100% { transform: scale(3);   opacity: 0; }
+}
+
+/* —— Detail card area —— */
+.about-map__cards {
+    position: relative;
+    margin-top: clamp(2px, 0.6vw, 8px);
+    min-height: clamp(110px, 13vw, 130px);
+}
+
+.about-map__card {
+    position: absolute;
+    inset: 0;
+    padding: clamp(14px, 2vw, 18px) clamp(16px, 2.4vw, 22px);
+    border-radius: calc(var(--radius-card) - 6px);
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(14px) saturate(1.5);
+    -webkit-backdrop-filter: blur(14px) saturate(1.5);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.85),
+        0 1px 0 rgba(20, 23, 34, 0.04),
+        0 6px 20px rgba(20, 23, 34, 0.06);
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition:
+        opacity   0.32s ease,
+        transform 0.45s cubic-bezier(0.22, 1, 0.28, 1);
+}
+
+.about-map__card[aria-hidden="false"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.about-map__card-city {
+    font-family: var(--font-display);
+    font-size: clamp(14px, 1.7vw, 17px);
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 3px;
+    letter-spacing: -0.015em;
+}
+
+.about-map__card-period {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+}
+
+.about-map__card-desc {
+    font-size: clamp(12px, 1.3vw, 13.5px);
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+    max-width: 64ch;
+}
+
+/* Hint sits in the same area as cards; fades out once any country is active */
+.about-map__hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.65;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.about-map[data-active] .about-map__hint { opacity: 0; }
+
+/* Reduced motion: skip movement, just toggle visibility */
+@media (prefers-reduced-motion: reduce) {
+    .country__svg,
+    .country__outline,
+    .pin__ring,
+    .pin__dot,
+    .about-map__card { transition: opacity 0.15s ease; }
+    .country:hover .country__svg,
+    .country.is-active .country__svg { transform: none; }
+    .pin__pulse { display: none; }
+}
+
+@media (max-width: 640px) {
+    .about-map__row {
+        flex-wrap: wrap;
         justify-content: center;
+        gap: 18px 22px;
+    }
+    .country { flex: 0 0 calc(50% - 22px); }
+    .about-map__cards { min-height: 150px; }
+}
+
+/* Contact panel */
+.contact-panel {
+    padding: clamp(22px, 4vw, 36px);
+}
+
+.contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 22px;
+}
+
+.contact-intro,
+.section-intro {
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+/* Experience — logo wall + testimonial cards */
+.experience-logos {
+    list-style: none;
+    margin: 22px 0 28px;
+    padding: 6px 0 10px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
+    gap: 24px clamp(20px, 4vw, 40px);
+}
+
+@media (min-width: 720px) {
+    .experience-logos {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+.experience-logo {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    min-height: 44px;
+}
+
+.experience-logo img {
+    max-width: 100%;
+    max-height: 40px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+
+.testimonial-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 720px) {
+    .testimonial-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+    }
+}
+
+.testimonial-card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    --frost-floor-top: 26%;
+    --frost-floor-bottom: -13%;
+    background: var(--hero-frost-bg);
+    backdrop-filter: var(--hero-frost-backdrop);
+    -webkit-backdrop-filter: var(--hero-frost-backdrop);
+    border: var(--hero-frost-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--frost-tile-shadow);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease);
+}
+
+.testimonial-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: var(--frost-floor-top);
+    bottom: var(--frost-floor-bottom);
+    border-radius: inherit;
+    background: #0f1218;
+    opacity: 0.048;
+    filter: blur(24px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.testimonial-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    background: var(--frost-spec-gradient);
+    opacity: var(--frost-spec-opacity);
+}
+
+.testimonial-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.testimonial-card:nth-child(3n + 1) {
+    --frost-fill-angle: 202deg;
+    --frost-spec-angle: 150deg;
+    --frost-fill-mid: 40%;
+}
+
+.testimonial-card:nth-child(3n + 2) {
+    --frost-fill-angle: 84deg;
+    --frost-spec-angle: -14deg;
+    --frost-fill-mid: 52%;
+}
+
+.testimonial-card:nth-child(3n + 3) {
+    --frost-fill-angle: 308deg;
+    --frost-spec-angle: 54deg;
+    --frost-spec-opacity: 0.79;
+    --frost-fill-mid: 44%;
+}
+
+.testimonial-card:hover {
+    box-shadow: var(--frost-tile-shadow-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .testimonial-card:hover {
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .testimonial-card:hover {
+        transform: translateY(-2px);
+    }
+}
+
+.testimonial-card__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.testimonial-card__avatar {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    display: block;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 1px solid var(--border-subtle);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65), 0 1px 2px rgba(20, 23, 34, 0.04);
+    background: #e8ecf4;
+}
+
+.testimonial-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.testimonial-card__name {
+    font-family: "Inter", var(--font-body);
+    font-weight: 700;
+    font-size: 0.98rem;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.25;
+}
+
+.testimonial-card__role {
+    font-family: "Inter", var(--font-body);
+    font-weight: 500;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.35;
+}
+
+.testimonial-card__quote {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14.5px;
+    line-height: 1.55;
+}
+
+.testimonial-card__quote p {
+    margin: 0;
+}
+
+.site-footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 24px clamp(16px, 4vw, 36px) 48px;
+    border-top: 1px solid var(--border-subtle);
+    font-size: 13px;
+    color: var(--text-soft);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.site-footer-inner a {
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Buttons — soft / neumorphic: recessed default, hover “pops”, :active presses back in */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 20px;
+    font-family: "Inter", var(--font-body);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text);
+    border: none;
+    background: var(--neo-face);
+    transform: translateY(0);
+    box-shadow:
+        inset 3px 3px 7px var(--neo-press-dark),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.92);
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease), background 0.2s var(--ease),
+        filter 0.2s var(--ease);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow:
+            6px 10px 18px rgba(100, 108, 140, 0.11),
+            -4px -4px 12px rgba(255, 255, 255, 0.9),
+            inset 1px 1px 2px rgba(255, 255, 255, 0.98),
+            inset -1px -1px 2px rgba(255, 255, 255, 0.45);
+    }
+
+    .btn:active {
+        transform: translateY(-0.5px) scale(0.99);
+        box-shadow:
+            inset 4px 4px 9px var(--neo-press-dark),
+            inset -2px -2px 7px rgba(255, 255, 255, 0.9);
+    }
+
+}
+
+.btn--tiny {
+    padding: 9px 16px;
+    font-size: 12.75px;
+    border-radius: 16px;
+}
+
+.btn--primary {
+    background: var(--neo-face);
+    color: var(--text);
+}
+
+.btn--secondary {
+    background: var(--neo-face-alt);
+    color: var(--text);
+}
+
+.btn-icon-svg,
+.btn-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+}
+
+/* Hero CTAs — carved “well” into frosted panel (matches section toggle pill) */
+.hero-panel .btn.btn--primary,
+.hero-panel .btn.btn--secondary,
+.contact-panel .btn.btn--primary,
+.contact-panel .btn.btn--secondary {
+    background: var(--pill-inset-face);
+    box-shadow: var(--pill-inset-relaxed);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    /* Flush with frosted hero face — no outer glow / lift */
+    .hero-panel .btn:hover,
+    .contact-panel .btn:hover {
+        transform: none;
+        box-shadow: none;
+        background: var(--hero-frost-bg);
+    }
+
+    .hero-panel .btn:active,
+    .contact-panel .btn:active {
+        transform: translateY(-0.5px) scale(0.99);
+        box-shadow:
+            inset 6px 6px 13px rgba(20, 23, 34, 0.17),
+            inset 3px 3px 6px rgba(20, 23, 34, 0.12),
+            inset 2px 2px 3px rgba(20, 23, 34, 0.15),
+            inset -3px -3px 9px rgba(255, 255, 255, 0.93),
+            inset -1px -1px 3px rgba(255, 255, 255, 0.78);
+    }
+}
+
+/* Case study layout */
+
+/* Full-bleed hero that mirrors the MacBook screen-grid so the zoom transition from
+ * index.html lands on a matching layout — same #fbfbfa background, same 2-col grid. */
+.case-hero-screen {
+    position: relative;
+    width: 100%;
+    background: var(--case-zoom-cover);
+    color: var(--text);
+    /* Fill the full viewport — matches the zoom curtain's final 100vw × 100vh size */
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.case-hero-screen__inner {
+    width: 100%;
+    max-width: min(1320px, 96vw);
+    margin: 0 auto;
+    /* These values MUST mirror the JS finalPadTop / finalPadLeft calculations
+     * in initMacbookCaseStudyZoom so the clone's ending position matches
+     * exactly where the case hero renders its content:
+     *   padding-top:  max(64px, 9vh)  ← max(64, vpH * 0.09)
+     *   padding-h:    clamp(24px,5vw,64px) + centering margin  ← heroPadH + heroMarginH */
+    padding: clamp(28px, 5vw, 56px) clamp(24px, 5vw, 64px);
+    padding-top: max(64px, 9vh);
+    display: flex;
+}
+
+.case-hero-screen .work-macbook__screen-grid {
+    width: 100%;
+    height: 100%;
+    min-height: clamp(360px, 68vh, 660px);
+    grid-template-columns: minmax(280px, 38%) minmax(0, 1fr);
+    gap: clamp(20px, 3.4vw, 48px);
+    padding: 0;
+}
+
+.case-hero-screen .work-macbook__copy {
+    gap: clamp(14px, 1.6vw, 22px);
+    overflow: visible;
+}
+
+.case-hero-screen .work-macbook__title {
+    font-size: clamp(2.55rem, 6.3vw, 4.275rem);
+}
+
+.case-hero-screen .work-macbook__line {
+    font-size: clamp(15px, 1.55vw, 18px);
+    line-height: 1.55;
+}
+
+.case-hero-screen .work-macbook__visual {
+    border-radius: clamp(10px, 1.2vw, 16px);
+    min-height: clamp(280px, 50vh, 560px);
+}
+
+.case-hero-screen .work-macbook__cta {
+    display: none;
+}
+
+@media (max-width: 719px) {
+    .case-hero-screen {
+        min-height: 0;
+    }
+
+    .case-hero-screen .work-macbook__screen-grid {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .case-hero-screen .work-macbook__visual {
+        order: -1;
+        min-height: 240px;
+    }
+}
+
+/* Case study site-header is fixed so it's out of document flow.
+ * This means .case-hero-screen starts at y=0, exactly matching where the zoom
+ * curtain ends (top:0 / 100vw × 100vh). */
+.site-header--case {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: var(--case-zoom-cover);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+/* —— Paint-bridge cover ——
+ * Sits above everything from the very first browser paint (opacity:1 is set
+ * explicitly — not via fill-mode — to guarantee no flash).  Once the zoom
+ * curtain on the source page has finished and the destination layout is fully
+ * composed, this cover dissolves to reveal the page in its final correct state.
+ *
+ * Because the clone inside the zoom curtain simultaneously transitions its
+ * padding to match the case-hero-screen__inner layout, the content position
+ * when the curtain ends matches where it appears when the cover lifts. */
+.case-zoom-cover {
+    position: fixed;
+    inset: 0;
+    background: var(--case-zoom-cover);
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 1; /* explicit — never rely on animation fill-mode for first paint */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .case-zoom-cover {
+        /* forwards: stay at opacity:0 after dissolve */
+        animation: case-cover-dissolve 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-zoom-cover { display: none; }
+}
+
+@keyframes case-cover-dissolve {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
+.case-main {
+    max-width: min(1080px, 94vw);
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 40px) clamp(16px, 4vw, 36px) 64px;
+}
+
+.case-nav-bar {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.case-nav-bar a {
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.case-nav-bar a:hover {
+    text-decoration: underline;
+}
+
+/* Compact overview block — sits below .case-hero-screen and carries the long-form
+ * subtitle plus Focus/Challenge/Outcome facts. */
+.case-overview {
+    margin-bottom: 32px;
+    padding: clamp(20px, 3.6vw, 32px);
+    border-radius: var(--radius-panel);
+    background: var(--surface-panel);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+}
+
+.case-overview .case-sub {
+    margin-bottom: 0;
+}
+
+.case-overview .case-meta-list {
+    margin-top: 18px;
+    padding-top: 16px;
+}
+
+.case-hero-panel {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(24px, 4vw, 38px);
+    border-radius: var(--radius-panel);
+    background: var(--surface-panel);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-m);
+    margin-bottom: 28px;
+}
+
+.case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.case-hero-panel h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 4vw, 2.25rem);
+    letter-spacing: -0.035em;
+    margin-bottom: 10px;
+}
+
+.case-sub {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 18px;
+}
+
+.case-meta-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+@media (min-width: 560px) {
+    .case-meta-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.case-meta-label {
+    font-size: 16.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text-soft);
+    margin-bottom: 4px;
+}
+
+.case-meta-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.case-section {
+    margin-bottom: 32px;
+}
+
+.case-section h2 {
+    font-family: var(--font-display);
+    font-size: 2.25rem;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
+
+.case-section p {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+}
+
+/* Paradigm long-form body — span full container width (no ch cap). */
+.case-prose-panel .case-section p,
+.case-prose-panel .case-lede,
+.case-prose-panel .case-list {
+    max-width: none;
+}
+
+/* —— Long-form case-study prose helpers ——
+ * Lede opens a story; subheads break up a multi-decision section;
+ * pull quotes highlight the framing questions; lists carry research bullets. */
+.case-section--lede {
+    margin-bottom: 44px;
+}
+
+/* Selector includes .case-section so it wins specificity over .case-section h2. */
+.case-section .case-lede-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.625rem, 5.7vw, 3.375rem);
+    letter-spacing: -0.025em;
+    line-height: 1.18;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.case-lede {
+    font-size: clamp(1rem, 1.6vw, 1.08rem);
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 16px;
+}
+
+.case-subhead {
+    font-family: var(--font-display);
+    font-size: 1.53rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin-top: 28px;
+    margin-bottom: 12px;
+}
+
+.case-list {
+    list-style: disc;
+    padding-left: 22px;
+    margin: 4px 0 16px;
+    color: var(--text-muted);
+}
+
+.case-list li {
+    margin-bottom: 6px;
+    line-height: 1.55;
+}
+
+.case-list li::marker {
+    color: var(--accent);
+}
+
+.case-pullquote {
+    margin: 16px 0 20px;
+    padding: clamp(14px, 2.2vw, 18px) clamp(16px, 2.6vw, 22px);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-card) var(--radius-card) 0;
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(255, 255, 255, 0.28) 100%
+    );
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.65),
+        0 1px 2px rgba(20, 23, 34, 0.04);
+}
+
+.case-pullquote p {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(1.02rem, 1.7vw, 1.16rem);
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    max-width: none;
+}
+
+.case-figure {
+    margin: 18px 0 14px;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-m);
+    background: #f3f5fa;
+}
+
+/* Paradigm long-form body — extra breathing room around exhibit images. */
+.case-prose-panel .case-figure {
+    margin: clamp(28px, 4.2vw, 40px) 0 clamp(26px, 3.8vw, 36px);
+}
+
+.case-figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Slim context-strip variant for project meta artifacts (role card, tool
+   stack, by-the-numbers) — narrower so they read as supporting framing rather
+   than full screenshot exhibits. */
+.case-figure--meta {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* "Bare" variant — strips the panel chrome so a transparent context image
+   (e.g. the role/Brandeis strip) sits cleanly on its parent surface. */
+.case-figure--bare {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+/* Role strip pinned to the top of the Focus/Challenge/Outcome card. */
+.case-overview__role {
+    margin: -4px auto 14px;
+}
+
+/* —— Hover-zoom (magnifying-glass) lens for content-dense screenshots —— */
+.case-figure--magnify {
+    position: relative;
+    overflow: visible;
+    cursor: zoom-in;
+}
+
+/* When the figure is allowed to overflow, the img itself needs the rounded
+   corners so they don't disappear with the parent's overflow clipping. */
+.case-figure--magnify > img {
+    border-radius: var(--radius-card);
+}
+
+.magnify-lens {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    pointer-events: none;
+    background-color: var(--surface, #fff);
+    background-repeat: no-repeat;
+    box-shadow:
+        0 6px 28px rgba(20, 23, 34, 0.28),
+        0 0 0 1px rgba(20, 23, 34, 0.12),
+        inset 0 0 0 2px rgba(255, 255, 255, 0.85),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.35);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+    transition: opacity 0.18s ease, transform 0.2s ease;
+    z-index: 5;
+    will-change: transform, background-position;
+}
+
+.magnify-lens.is-active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+@media (hover: none) {
+    .case-figure--magnify { cursor: default; }
+    .magnify-lens { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .magnify-lens { transition: opacity 0.12s linear; }
+}
+
+/* Long-form prose panel — wraps the case-study narrative below the
+ * Focus / Challenge / Outcome card so all text sits on the same legible
+ * frosted-glass surface. */
+.case-prose-panel {
+    margin-bottom: 32px;
+    padding: clamp(20px, 3.6vw, 32px);
+    border-radius: var(--radius-panel);
+    background: var(--surface-panel);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+}
+
+.case-prose-panel > .case-section:last-child {
+    margin-bottom: 0;
+}
+
+.case-prose-panel > .case-section:last-child > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Light dividers between major h2 sections inside the long-form prose panel. */
+.case-prose-panel > .case-section {
+    margin-bottom: 0;
+}
+
+.case-prose-panel > .case-section--lede {
+    margin-bottom: 0;
+}
+
+.case-prose-panel > .case-section + .case-section {
+    margin-top: clamp(32px, 4.5vw, 44px);
+    padding-top: clamp(22px, 3.2vw, 30px);
+    border-top: 1px solid rgba(20, 23, 34, 0.08);
+}
+
+.case-prose-panel > .case-section--pdf {
+    margin-top: 0;
+}
+
+/* Paradigm capstone PDF viewer — last section at the bottom of the case study. */
+.case-section--pdf {
+    margin-bottom: 0;
+}
+
+.case-pdf-intro {
+    margin-bottom: 16px;
+}
+
+.case-kbd {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.55);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.82em;
+    line-height: 1.35;
+    color: var(--text);
+}
+
+.case-pdf-viewer {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-m);
+    background: #f3f5fa;
+    overflow: hidden;
+    outline: none;
+}
+
+.case-pdf-viewer:focus-visible {
+    box-shadow:
+        var(--shadow-m),
+        0 0 0 3px rgba(107, 124, 255, 0.35);
+}
+
+.case-pdf-viewer__toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(12px, 2.4vw, 18px);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-subtle);
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.72) 0%,
+        rgba(255, 255, 255, 0.42) 100%
+    );
+}
+
+.case-pdf-viewer__arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border-subtle);
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.case-pdf-viewer__arrow:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(20, 23, 34, 0.14);
+}
+
+.case-pdf-viewer__arrow:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.case-pdf-viewer__status {
+    margin: 0;
+    min-width: 5.5ch;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.case-pdf-viewer__stage {
+    position: relative;
+    min-height: clamp(220px, 42vw, 520px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(12px, 2vw, 18px);
+}
+
+.case-pdf-viewer__stage canvas {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius-card) - 4px);
+    box-shadow: 0 1px 3px rgba(20, 23, 34, 0.08);
+}
+
+.case-pdf-viewer__stage canvas[hidden] {
+    display: none;
+}
+
+.case-pdf-viewer__loading,
+.case-pdf-viewer__error {
+    margin: 0;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.case-pdf-viewer__error a {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* Mirror the hero CTA "carved well" treatment so the gallery CTA on each
+ * case study reads as a sibling of "See my work" / "Contact me". */
+.case-gallery-trigger.btn,
+.case-gallery-trigger.btn.btn--primary,
+.case-gallery-trigger.btn.btn--secondary {
+    margin-top: 8px;
+    background: var(--pill-inset-face);
+    box-shadow: var(--pill-inset-relaxed);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .case-gallery-trigger.btn:hover {
+        transform: none;
+        box-shadow: none;
+        background: var(--hero-frost-bg);
+    }
+
+    .case-gallery-trigger.btn:active {
+        transform: translateY(-0.5px) scale(0.99);
+        box-shadow:
+            inset 6px 6px 13px rgba(20, 23, 34, 0.17),
+            inset 3px 3px 6px rgba(20, 23, 34, 0.12),
+            inset 2px 2px 3px rgba(20, 23, 34, 0.15),
+            inset -3px -3px 9px rgba(255, 255, 255, 0.93),
+            inset -1px -1px 3px rgba(255, 255, 255, 0.78);
+    }
+}
+
+.prose-strong {
+    color: var(--text);
+    font-weight: 700;
+}
+
+/* Lightbox — dark chrome for imagery contrast */
+body.lightbox-open {
+    overflow: hidden;
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: min(10px, 2vw);
+}
+
+.lightbox[hidden] {
+    display: none !important;
+}
+
+.lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(12, 14, 24, 0.82);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    cursor: pointer;
+    z-index: 0;
+}
+
+.lightbox-panel {
+    position: relative;
+    z-index: 1;
+    width: min(1320px, calc(100vw - 14px));
+    max-height: min(94vh, 960px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #f4f7ff;
+    cursor: pointer;
+    transition: background 0.2s var(--ease);
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox-carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding-top: 40px;
+}
+
+.lightbox-viewport {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    width: 100%;
+    max-height: min(84vh, 880px);
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: #0b0e18;
+}
+
+.lightbox-slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    scroll-snap-align: start;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: min(78vh, 820px);
+    padding: clamp(4px, 1vw, 12px);
+}
+
+.lightbox-slide img {
+    margin: 0 auto;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: min(82vh, 85vmin);
+    object-fit: contain;
+}
+
+.lightbox-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.lightbox-arrow {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s var(--ease);
+}
+
+.lightbox-arrow:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.lightbox-dots {
+    display: flex;
+    gap: 8px;
+    min-height: 20px;
+}
+
+.lightbox-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.lightbox-dot--active {
+    background: linear-gradient(135deg, #6b7cff, #e06bcb);
+    transform: scale(1.25);
+}
+
+/* Case pages — simplified header with a single left-aligned Back button. */
+.site-header--case {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+.site-header--case .section-nav-wrap {
+    display: none;
+}
+
+.case-back-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-family: "Inter", var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--accent);
+    padding: 9px 16px 9px 12px;
+    border-radius: 18px;
+    border: none;
+    background: var(--neo-face);
+    box-shadow:
+        inset 3px 3px 7px var(--neo-press-dark),
+        inset -2px -2px 6px rgba(255, 255, 255, 0.92);
+    transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.case-back-link svg {
+    flex: 0 0 auto;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .case-back-link:hover {
+        transform: translateY(0);
+        box-shadow:
+            inset 4px 4px 8px var(--neo-press-dark),
+            inset -2px -2px 7px rgba(255, 255, 255, 0.9);
+    }
+}
+
+.case-back-link:active {
+    transform: translateY(-2px);
+    box-shadow:
+        4px 4px 10px rgba(100, 108, 140, 0.13),
+        -3px -3px 9px rgba(255, 255, 255, 0.88),
+        inset 1px 1px 2px rgba(255, 255, 255, 0.96),
+        inset -1px -1px 3px var(--neo-inset-well);
+}
+
+/* Mobile header */
+@media (max-width: 720px) {
+    .site-header--case {
+        justify-content: flex-start;
+    }
+
+    .site-header--case .case-back-link {
+        margin: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    /* Keep soft-UI stacks static on hover — global rule shortens transitions */
+    .btn:hover,
+    .btn--primary:hover,
+    .btn--secondary:hover {
+        transform: none;
+        box-shadow:
+            inset 3px 3px 7px var(--neo-press-dark),
+            inset -2px -2px 6px rgba(255, 255, 255, 0.92);
+    }
+
+    .hero-panel .btn.btn--primary,
+    .hero-panel .btn.btn--secondary,
+    .contact-panel .btn.btn--primary,
+    .contact-panel .btn.btn--secondary,
+    .case-gallery-trigger.btn,
+    .case-gallery-trigger.btn.btn--primary,
+    .case-gallery-trigger.btn.btn--secondary {
+        box-shadow: var(--pill-inset-relaxed);
+    }
+
+    .hero-panel .btn:hover,
+    .hero-panel .btn.btn--primary:hover,
+    .hero-panel .btn.btn--secondary:hover,
+    .contact-panel .btn:hover,
+    .contact-panel .btn.btn--primary:hover,
+    .contact-panel .btn.btn--secondary:hover,
+    .case-gallery-trigger.btn:hover {
+        transform: none;
+        box-shadow: none;
+        background: var(--hero-frost-bg);
+    }
+
+    .btn:active,
+    .btn--primary:active,
+    .btn--secondary:active {
+        transform: none;
+        box-shadow:
+            inset 3px 3px 7px var(--neo-press-dark),
+            inset -2px -2px 6px rgba(255, 255, 255, 0.92);
+    }
+
+    .hero-panel .btn:active,
+    .hero-panel .btn.btn--primary:active,
+    .hero-panel .btn.btn--secondary:active,
+    .contact-panel .btn:active,
+    .contact-panel .btn.btn--primary:active,
+    .contact-panel .btn.btn--secondary:active,
+    .case-gallery-trigger.btn:active {
+        transform: none;
+        box-shadow:
+            inset 6px 6px 13px rgba(20, 23, 34, 0.17),
+            inset 3px 3px 6px rgba(20, 23, 34, 0.12),
+            inset 2px 2px 3px rgba(20, 23, 34, 0.15),
+            inset -3px -3px 9px rgba(255, 255, 255, 0.93),
+            inset -1px -1px 3px rgba(255, 255, 255, 0.78);
+    }
+
+    .case-back-link:hover {
+        transform: none;
+        box-shadow:
+            inset 3px 3px 7px var(--neo-press-dark),
+            inset -2px -2px 6px rgba(255, 255, 255, 0.92);
     }
 }

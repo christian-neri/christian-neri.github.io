@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paradigm — Case study | Christian Neri</title>
+    <meta name="description"
+        content="Paradigm: product vision and UX patterns for supportive mental health and mindfulness experiences.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Paint-bridge: same #fbfbfa as the zoom curtain; dissolves once layout is settled -->
+    <div class="case-zoom-cover" aria-hidden="true"></div>
+    <a class="skip-link" href="#case-main">Skip to case study</a>
+
+    <header class="site-header site-header--case" role="banner">
+        <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" />
+            </svg>
+            <span>Back</span>
+        </a>
+    </header>
+
+    <header class="case-hero-screen" aria-labelledby="paradigm-title">
+        <div class="case-hero-screen__inner">
+            <div class="work-macbook__screen-grid">
+                <div class="work-macbook__copy">
+                    <h1 id="paradigm-title" class="work-macbook__title">Paradigm</h1>
+                    <div class="work-macbook__tags">
+                        <span class="tag">Product</span>
+                        <span class="tag">Mobile</span>
+                        <span class="tag">Wellbeing</span>
+                    </div>
+                    <p class="work-macbook__line"><span class="goal-label"><strong>Context:</strong></span> A calmer take on social and mindfulness experiences for mental health.</p>
+                    <p class="work-macbook__line"><span class="goal-label"><strong>Goal:</strong></span> Product vision, core UX patterns, and supportive — not performative — interactions.</p>
+                </div>
+                <div class="work-macbook__visual work-macbook__visual--paradigm">
+                    <img src="assets/paradigm/cover.png" alt="Paradigm app interfaces on devices" loading="eager" fetchpriority="high">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="case-main" class="case-main">
+        <nav class="case-nav-bar" aria-label="Breadcrumb">
+            <a href="index.html">Home</a>
+            <span aria-hidden="true"> · </span>
+            <a href="index.html#work">Work</a>
+            <span aria-hidden="true"> · </span>
+            <span aria-current="page">Paradigm</span>
+        </nav>
+
+        <div class="case-prose-panel">
+            <section class="case-section case-section--lede" aria-labelledby="paradigm-lede">
+                <h2 id="paradigm-lede" class="case-lede-title">Reimagining social media through a mental wellness lens</h2>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/hero-banner.jpg"
+                        alt="Paradigm — Change your perspective. Brand illustration with four app screens showing onboarding, mood selection, content feed, and wellness agenda."
+                        loading="eager" fetchpriority="high" width="2500" height="976">
+                </figure>
+                <p class="case-lede">Paradigm is a conceptual mobile experience exploring a question that
+                    defines modern digital product design:</p>
+                <blockquote class="case-pullquote">
+                    <p>What responsibility do digital platforms have in shaping users&rsquo; emotional wellbeing?</p>
+                </blockquote>
+                <p>The project emerged from a broader interest in the relationship between social media, algorithmic
+                    content consumption, and mental health &mdash; particularly among younger digital-native audiences.</p>
+                <p>Rather than approaching mindfulness as a separate utility disconnected from everyday digital behavior,
+                    Paradigm explored whether the engagement mechanics of social media itself could be redesigned to
+                    encourage more intentional, emotionally supportive experiences.</p>
+                <p>This became less about designing &ldquo;another mindfulness app&rdquo; and more about examining how
+                    product systems and content influence emotional states, attention, and user agency.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-context-questions">
+                <h2 id="paradigm-context-questions">The context &amp; key questions</h2>
+                <p>In 2019, 970 million people globally were living with a mental health disorder. In 2022, 23.1% of
+                    American adults experienced a mental health condition. These challenges are estimated to cost
+                    $16 trillion globally by 2030.</p>
+                <p>To what extent does social media impact mental health, how do digital natives cope with anxiety, and
+                    what design solutions can leverage the playbook of the world&rsquo;s most popular platforms to help
+                    young people reduce stress and mend their relationship with social media?</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-problem">
+                <h2 id="paradigm-problem">The problem</h2>
+                <p>Modern social platforms are incredibly effective at capturing attention &mdash; but not necessarily at
+                    supporting wellbeing.</p>
+                <p>Research increasingly points to the effects of:</p>
+                <ul class="case-list">
+                    <li>passive content consumption,</li>
+                    <li>algorithmic reinforcement loops,</li>
+                    <li>overstimulation,</li>
+                    <li>and comparison-driven engagement patterns.</li>
+                </ul>
+                <p>At the same time, mindfulness and wellness platforms often struggle with long-term engagement because
+                    they exist outside users&rsquo; existing digital habits and behavioral patterns.</p>
+                <p>The challenge became:</p>
+                <blockquote class="case-pullquote">
+                    <p>Could the mechanics that make social platforms addictive be reimagined more intentionally to support
+                        emotional wellbeing instead?</p>
+                </blockquote>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-research">
+                <h2 id="paradigm-research">Research &amp; exploration</h2>
+                <p>The project began with a broad research phase combining a literature review, market analysis,
+                    qualitative user research, and behavioral pattern analysis.</p>
+                <figure class="case-figure case-figure--meta">
+                    <img src="assets/paradigm/tool-stack.png"
+                        alt="Project tool stack — Figma, Miro, Maze, and Google Forms">
+                </figure>
+                <p>An extensive review of existing research explored:</p>
+                <ul class="case-list">
+                    <li>social media&rsquo;s impact on mental health</li>
+                    <li>digital coping behaviors</li>
+                    <li>passive vs active consumption patterns</li>
+                    <li>and the efficacy of mindfulness applications</li>
+                </ul>
+                <p>A qualitative survey of 65 participants helped surface:</p>
+                <ul class="case-list">
+                    <li>emotional triggers tied to platform usage</li>
+                    <li>coping mechanisms</li>
+                    <li>motivations for social media engagement</li>
+                    <li>and expectations around personalization and emotional safety</li>
+                </ul>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/qualitative-survey.jpg"
+                        alt="Qualitative survey results — 95% use social media daily, 57% have regular anxiety, 45% lack adequate control over content, 62% follow inspirational or mental-health accounts"
+                        width="2500" height="1405">
+                </figure>
+                <p>One insight became especially important:</p>
+                <blockquote class="case-pullquote">
+                    <p>Users wanted more control over the emotional tone of the content they consumed &mdash; but most
+                        platforms offered very little intentionality around algorithmic calibration.</p>
+                </blockquote>
+                <p>That insight significantly shaped the product direction.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-thinking">
+                <h2 id="paradigm-thinking">Product thinking &amp; design decisions</h2>
+                <p>Instead of treating content recommendations as a purely engagement-driven system, Paradigm explored
+                    how recommendation mechanics could become more transparent, adjustable, and emotionally responsive.</p>
+                <p>Several core design decisions emerged from this thinking:</p>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/journey-map.jpg" data-magnify
+                        alt="User journey map for Paradigm — stages from recognition through adoption, with thinking, pain points, and design opportunities at each step"
+                        width="2500" height="1405">
+                </figure>
+
+                <h3 class="case-subhead">Designing for agency, not just engagement</h3>
+                <p>A central concept of the experience was giving users more influence over the algorithm shaping their
+                    content feed. This led to the introduction of:</p>
+                <ul class="case-list">
+                    <li>emotion calibration tools</li>
+                    <li>personalized recommendation controls</li>
+                    <li>and the &ldquo;Quick Search&rdquo; feature, allowing users to intentionally influence the content
+                        surfaced to them</li>
+                </ul>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/feature-prioritization.jpg" data-magnify
+                        alt="Feature prioritization matrices — usage frequency by share of users, and reward-vs-effort scoring used to rank candidate features"
+                        width="2500" height="1405">
+                </figure>
+                <p>The goal was not simply personalization &mdash; but restoring a greater sense of agency within
+                    algorithmic experiences.</p>
+
+                <h3 class="case-subhead">Leveraging familiar interaction models intentionally</h3>
+                <p>Rather than reinventing interaction patterns entirely, the experience borrowed familiar mental models
+                    from short-form social video platforms.</p>
+                <p>This reduced onboarding friction while allowing users to focus attention on the emotional and
+                    behavioral experience itself rather than learning a new interface paradigm.</p>
+                <p>The design challenge became:</p>
+                <blockquote class="case-pullquote">
+                    <p>How to preserve familiarity without inheriting the negative behavioral patterns commonly associated
+                        with mainstream social platforms.</p>
+                </blockquote>
+
+                <h3 class="case-subhead">Designing for emotional clarity</h3>
+                <p>Usability testing revealed that early iterations lacked clarity around the platform&rsquo;s value
+                    proposition and emotional intent.</p>
+                <p>In response, the onboarding experience was redesigned to:</p>
+                <ul class="case-list">
+                    <li>better communicate the purpose of the platform,</li>
+                    <li>establish emotional expectations early,</li>
+                    <li>and reinforce user control over content personalization.</li>
+                </ul>
+                <p>This significantly improved comprehension and user confidence during testing.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-iteration">
+                <h2 id="paradigm-iteration">Iteration &amp; validation</h2>
+                <p>Low-fidelity prototypes were tested through contextual interviews and usability sessions to evaluate:</p>
+                <ul class="case-list">
+                    <li>onboarding comprehension</li>
+                    <li>content discoverability</li>
+                    <li>personalization expectations</li>
+                    <li>perceived emotional relevance</li>
+                </ul>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/lowfi-prototype.jpg" data-magnify
+                        alt="Low-fidelity prototype — wireframe flow covering onboarding, emotion-based search, recommendations, and an integrated booking experience"
+                        width="2500" height="1405">
+                </figure>
+                <p>Testing surfaced several key friction points:</p>
+                <ul class="case-list">
+                    <li>insufficient algorithm transparency</li>
+                    <li>weak feedback during search interactions</li>
+                    <li>and unclear content calibration controls</li>
+                </ul>
+                <p>These findings directly informed the final high-fidelity iteration.</p>
+                <p>Rather than treating usability testing as validation of static screens, the process became an exercise
+                    in understanding how users emotionally interpret platform behavior.</p>
+                <p>That distinction became one of the most valuable learnings from the project.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-outcome">
+                <h2 id="paradigm-outcome">Outcome &amp; reflection</h2>
+                <p>Paradigm ultimately became an exploration of how digital product design can shape not only usability,
+                    but emotional behavior and attention patterns.</p>
+                <p>More than a conceptual UI exercise, the project challenged me to think more critically about:</p>
+                <ul class="case-list">
+                    <li>algorithmic responsibility</li>
+                    <li>behavioral design ethics</li>
+                    <li>emotional UX</li>
+                    <li>and the unintended consequences of engagement-driven systems</li>
+                </ul>
+                <p>It also reinforced how much modern product design extends beyond interfaces alone.</p>
+                <blockquote class="case-pullquote">
+                    <p>The most impactful product decisions often happen upstream: how systems are structured, how
+                        incentives are designed, and how much agency users are given within digital environments.</p>
+                </blockquote>
+                <p>In today&rsquo;s AI-driven landscape &mdash; where personalization systems are becoming even more
+                    powerful &mdash; I believe these questions matter more than ever.</p>
+                <figure class="case-figure case-figure--bare case-figure--meta">
+                    <img src="assets/paradigm/results-stats.png"
+                        alt="Project results — 65+ survey participants, 2 prototype rounds, 3 design pillars">
+                </figure>
+            </section>
+
+            <section class="case-section" aria-labelledby="paradigm-presenting">
+                <h2 id="paradigm-presenting">Presenting Paradigm</h2>
+                <p>Combining the emotional power of the moving image with the intentionality and efficacy of mindfulness,
+                    the Paradigm concept is a research-based social media experience with the power to inspire, change
+                    perspectives, and reduce commonplace stress and anxiety. Crafted with a clean, minimalist interface,
+                    Paradigm&rsquo;s interaction design is familiar and fosters connection, helping users build likeminded
+                    communities through a variety of inspirational social video and therapeutic mindfulness content.
+                    Personalized recommendations tailor content to users&rsquo; emotional state and give users the agency
+                    to calibrate the algorithm to their needs, building a truly user-centric experience.</p>
+                <figure class="case-figure">
+                    <img src="assets/paradigm/highfi-prototype.png" data-magnify
+                        alt="High-fidelity prototype — full product flow covering onboarding, emotion check-in, content discovery, search, agenda, and provider profiles">
+                </figure>
+                <button type="button" class="btn btn--primary case-gallery-trigger" id="open-paradigm-gallery"
+                    aria-haspopup="dialog" aria-controls="lightbox-paradigm">Open gallery</button>
+            </section>
+
+            <section class="case-section case-section--pdf" aria-labelledby="paradigm-pdf-title">
+                <h2 id="paradigm-pdf-title">Capstone final report</h2>
+                <p class="case-pdf-intro">View the full case study below:</p>
+                <div class="case-pdf-viewer" data-paradigm-pdf data-pdf-src="assets/paradigm/paradigm-capstone-report.pdf"
+                    tabindex="0" role="region" aria-label="Capstone final report presentation">
+                    <div class="case-pdf-viewer__toolbar">
+                        <button type="button" class="case-pdf-viewer__arrow" data-pdf-prev aria-label="Previous page"
+                            disabled>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <p class="case-pdf-viewer__status" aria-live="polite">
+                            <span data-pdf-current>1</span> / <span data-pdf-total>—</span>
+                        </p>
+                        <button type="button" class="case-pdf-viewer__arrow" data-pdf-next aria-label="Next page"
+                            disabled>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" aria-hidden="true">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="case-pdf-viewer__stage">
+                        <canvas data-pdf-canvas aria-label="Presentation page"></canvas>
+                        <p class="case-pdf-viewer__loading" data-pdf-loading>Loading presentation…</p>
+                        <p class="case-pdf-viewer__error" data-pdf-error hidden>Couldn&rsquo;t load the presentation.
+                            <a href="assets/paradigm/paradigm-capstone-report.pdf" target="_blank" rel="noopener">Open the PDF directly</a>.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="site-footer-inner">
+            <p>&copy; 2026 Christian Neri</p>
+            <p><a href="mailto:contact@christianneri.com">contact@christianneri.com</a></p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox-paradigm" role="dialog" aria-modal="true"
+        aria-labelledby="lightbox-paradigm-title" hidden data-lightbox-root data-open-button="open-paradigm-gallery">
+        <div class="lightbox-backdrop" data-lightbox-close></div>
+        <div class="lightbox-panel">
+            <p id="lightbox-paradigm-title" class="visually-hidden">Paradigm product screens gallery</p>
+            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close gallery">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    aria-hidden="true">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                </svg>
+            </button>
+            <div class="lightbox-carousel">
+                <div class="lightbox-viewport" tabindex="0" aria-label="Paradigm product screens">
+                    <figure class="lightbox-slide">
+                        <img src="assets/paradigm/cover.png" alt="Paradigm — overview of product screens">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/paradigm/slide-01.png"
+                            alt="Paradigm — dual search and contextual recommendations">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/paradigm/slide-02.png" alt="Paradigm — guided emotional check-ins">
+                    </figure>
+                    <figure class="lightbox-slide">
+                        <img src="assets/paradigm/slide-03.png" alt="Paradigm — adaptive feed with dark mode">
+                    </figure>
+                </div>
+                <div class="lightbox-toolbar">
+                    <button type="button" class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous image">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M15 18l-6-6 6-6" />
+                        </svg>
+                    </button>
+                    <div class="lightbox-dots" aria-label="Gallery position"></div>
+                    <button type="button" class="lightbox-arrow lightbox-arrow--next" aria-label="Next image">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M9 18l6-6-6-6" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/vendor/pdfjs/pdf.min.js"></script>
+    <script>
+        if (typeof pdfjsLib !== "undefined") {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+                "assets/vendor/pdfjs/pdf.worker.min.js",
+                window.location.href
+            ).href;
+        }
+    </script>
+    <script src="main.js" defer></script>
+</body>
+
+</html>
