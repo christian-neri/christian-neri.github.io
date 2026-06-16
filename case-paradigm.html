@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
 </head>
 
@@ -21,13 +21,24 @@
     <a class="skip-link" href="#case-main">Skip to case study</a>
 
     <header class="site-header site-header--case" role="banner">
-        <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m15 18-6-6 6-6" />
-            </svg>
-            <span>Back</span>
-        </a>
+        <div class="case-header-nav">
+            <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                <span>Back</span>
+            </a>
+            <div class="case-study-switcher-wrap">
+                <label class="visually-hidden" for="case-study-switcher">Switch case study</label>
+                <select class="case-study-switcher" id="case-study-switcher" data-case-study-switcher
+                    data-case-current="case-paradigm.html">
+                    <option value="case-paradigm.html">Paradigm</option>
+                    <option value="case-studiocanal.html">Studiocanal</option>
+                    <option value="case-radioactive.html">Radioactive</option>
+                </select>
+            </div>
+        </div>
     </header>
 
     <header class="case-hero-screen" aria-labelledby="paradigm-title">
@@ -40,8 +51,38 @@
                         <span class="tag">Mobile</span>
                         <span class="tag">Wellbeing</span>
                     </div>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Context:</strong></span> A calmer take on social and mindfulness experiences for mental health.</p>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Goal:</strong></span> Product vision, core UX patterns, and supportive — not performative — interactions.</p>
+                    <div class="case-hero-meta">
+                        <div class="case-hero-meta__block">
+                            <p class="case-design-stack__heading">Challenge</p>
+                            <p class="case-hero-meta__text">Take on the global mental health crisis with a fresh approach to social media.</p>
+                        </div>
+                    </div>
+                    <div class="case-design-stack case-design-stack--hero">
+                        <p class="case-design-stack__heading">Design Stack</p>
+                        <ul class="case-design-stack__logos" role="list">
+                            <li class="case-design-stack__item">
+                                <img src="assets/paradigm/figma.png" alt="" width="44" height="44" loading="eager" decoding="async">
+                                <span class="case-design-stack__name">Figma</span>
+                            </li>
+                            <li class="case-design-stack__item">
+                                <img src="assets/paradigm/miro.png" alt="" width="44" height="44" loading="eager" decoding="async">
+                                <span class="case-design-stack__name">Miro</span>
+                            </li>
+                            <li class="case-design-stack__item">
+                                <img src="assets/paradigm/maze.png" alt="" width="44" height="44" loading="eager" decoding="async">
+                                <span class="case-design-stack__name">Maze</span>
+                            </li>
+                            <li class="case-design-stack__item">
+                                <img src="assets/paradigm/google-forms.png" alt="" width="44" height="44" loading="eager" decoding="async">
+                                <span class="case-design-stack__name">Google Forms</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <hr class="section-divider case-hero-divider" aria-hidden="true">
+                    <div class="hero-actions case-hero-actions">
+                        <a class="btn btn--primary" href="#paradigm-lede">Get started</a>
+                        <a class="btn btn--secondary" href="#paradigm-outcome">See results</a>
+                    </div>
                 </div>
                 <div class="work-macbook__visual work-macbook__visual--paradigm">
                     <img src="assets/paradigm/cover.png" alt="Paradigm app interfaces on devices" loading="eager" fetchpriority="high">
@@ -59,8 +100,12 @@
             <span aria-current="page">Paradigm</span>
         </nav>
 
-        <div class="case-prose-panel">
+        <div class="case-prose-panel case-prose-panel--reading">
+            <nav class="case-dial" data-case-dial aria-label="Case study sections"></nav>
+            <div class="case-prose-panel__rail" aria-hidden="true"></div>
+            <div class="case-prose-panel__content" data-case-read-panel>
             <section class="case-section case-section--lede" aria-labelledby="paradigm-lede">
+                <p class="case-read-time" data-case-read-time>4 minute read</p>
                 <h2 id="paradigm-lede" class="case-lede-title">Reimagining social media through a mental wellness lens</h2>
                 <figure class="case-figure">
                     <img src="assets/paradigm/hero-banner.jpg"
@@ -83,12 +128,19 @@
 
             <section class="case-section" aria-labelledby="paradigm-context-questions">
                 <h2 id="paradigm-context-questions">The context &amp; key questions</h2>
-                <p>In 2019, 970 million people globally were living with a mental health disorder. In 2022, 23.1% of
-                    American adults experienced a mental health condition. These challenges are estimated to cost
-                    $16 trillion globally by 2030.</p>
-                <p>To what extent does social media impact mental health, how do digital natives cope with anxiety, and
-                    what design solutions can leverage the playbook of the world&rsquo;s most popular platforms to help
-                    young people reduce stress and mend their relationship with social media?</p>
+                <div class="case-context-split">
+                    <figure class="case-context-illustration">
+                        <img src="assets/paradigm/context-illustration.svg" alt="" width="220" height="220" loading="lazy" decoding="async">
+                    </figure>
+                    <div class="case-context-split__body">
+                        <p>In 2019, 970 million people globally were living with a mental health disorder. In 2022, 23.1% of
+                            American adults experienced a mental health condition. These challenges are estimated to cost
+                            $16 trillion globally by 2030.</p>
+                        <p>To what extent does social media impact mental health, how do digital natives cope with anxiety, and
+                            what design solutions can leverage the playbook of the world&rsquo;s most popular platforms to help
+                            young people reduce stress and mend their relationship with social media?</p>
+                    </div>
+                </div>
             </section>
 
             <section class="case-section" aria-labelledby="paradigm-problem">
@@ -115,10 +167,6 @@
                 <h2 id="paradigm-research">Research &amp; exploration</h2>
                 <p>The project began with a broad research phase combining a literature review, market analysis,
                     qualitative user research, and behavioral pattern analysis.</p>
-                <figure class="case-figure case-figure--meta">
-                    <img src="assets/paradigm/tool-stack.png"
-                        alt="Project tool stack — Figma, Miro, Maze, and Google Forms">
-                </figure>
                 <p>An extensive review of existing research explored:</p>
                 <ul class="case-list">
                     <li>social media&rsquo;s impact on mental health</li>
@@ -139,8 +187,16 @@
                         width="2500" height="1405">
                 </figure>
                 <p>One insight became especially important:</p>
-                <blockquote class="case-pullquote">
-                    <p>Users wanted more control over the emotional tone of the content they consumed &mdash; but most
+                <blockquote class="case-pullquote case-pullquote--insight">
+                    <span class="case-pullquote__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6"/>
+                            <path d="M10 22h4"/>
+                            <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+                        </svg>
+                    </span>
+                    <p><span class="case-pullquote__label">Insight:</span> Users wanted more control over the emotional tone of the content they consumed &mdash; but most
                         platforms offered very little intentionality around algorithmic calibration.</p>
                 </blockquote>
                 <p>That insight significantly shaped the product direction.</p>
@@ -224,7 +280,29 @@
             </section>
 
             <section class="case-section" aria-labelledby="paradigm-outcome">
-                <h2 id="paradigm-outcome">Outcome &amp; reflection</h2>
+                <h2 id="paradigm-outcome">Results &amp; reflection</h2>
+                <dl class="case-project-stats">
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Research participants</dt>
+                        <dd class="case-project-stats__value">65+</dd>
+                        <dd class="case-project-stats__label">research participants</dd>
+                    </div>
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Prototypes</dt>
+                        <dd class="case-project-stats__value">2</dd>
+                        <dd class="case-project-stats__label">prototypes</dd>
+                    </div>
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Task success rate</dt>
+                        <dd class="case-project-stats__value case-project-stats__value--emphasis">84%</dd>
+                        <dd class="case-project-stats__label">task success rate</dd>
+                    </div>
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Iterations</dt>
+                        <dd class="case-project-stats__value">3</dd>
+                        <dd class="case-project-stats__label">iterations</dd>
+                    </div>
+                </dl>
                 <p>Paradigm ultimately became an exploration of how digital product design can shape not only usability,
                     but emotional behavior and attention patterns.</p>
                 <p>More than a conceptual UI exercise, the project challenged me to think more critically about:</p>
@@ -241,14 +319,10 @@
                 </blockquote>
                 <p>In today&rsquo;s AI-driven landscape &mdash; where personalization systems are becoming even more
                     powerful &mdash; I believe these questions matter more than ever.</p>
-                <figure class="case-figure case-figure--bare case-figure--meta">
-                    <img src="assets/paradigm/results-stats.png"
-                        alt="Project results — 65+ survey participants, 2 prototype rounds, 3 design pillars">
-                </figure>
             </section>
 
             <section class="case-section" aria-labelledby="paradigm-presenting">
-                <h2 id="paradigm-presenting">Presenting Paradigm</h2>
+                <h2 id="paradigm-presentation">Presenting Paradigm</h2>
                 <p>Combining the emotional power of the moving image with the intentionality and efficacy of mindfulness,
                     the Paradigm concept is a research-based social media experience with the power to inspire, change
                     perspectives, and reduce commonplace stress and anxiety. Crafted with a clean, minimalist interface,
@@ -256,111 +330,68 @@
                     communities through a variety of inspirational social video and therapeutic mindfulness content.
                     Personalized recommendations tailor content to users&rsquo; emotional state and give users the agency
                     to calibrate the algorithm to their needs, building a truly user-centric experience.</p>
-                <figure class="case-figure">
-                    <img src="assets/paradigm/highfi-prototype.png" data-magnify
-                        alt="High-fidelity prototype — full product flow covering onboarding, emotion check-in, content discovery, search, agenda, and provider profiles">
-                </figure>
-                <button type="button" class="btn btn--primary case-gallery-trigger" id="open-paradigm-gallery"
-                    aria-haspopup="dialog" aria-controls="lightbox-paradigm">Open gallery</button>
-            </section>
-
-            <section class="case-section case-section--pdf" aria-labelledby="paradigm-pdf-title">
-                <h2 id="paradigm-pdf-title">Capstone final report</h2>
-                <p class="case-pdf-intro">View the full case study below:</p>
-                <div class="case-pdf-viewer" data-paradigm-pdf data-pdf-src="assets/paradigm/paradigm-capstone-report.pdf"
-                    tabindex="0" role="region" aria-label="Capstone final report presentation">
-                    <div class="case-pdf-viewer__toolbar">
-                        <button type="button" class="case-pdf-viewer__arrow" data-pdf-prev aria-label="Previous page"
-                            disabled>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                <div class="case-visual-carousel" data-case-carousel aria-label="Paradigm presentation slides">
+                    <div class="case-visual-carousel__viewport" tabindex="0" aria-label="Paradigm presentation gallery">
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/paradigm/presenting-01.png" data-magnify width="1024" height="774" loading="lazy"
+                                alt="Paradigm — full product flow from splash screen through social feed, discovery, and search">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/paradigm/presenting-02.png" data-magnify width="1024" height="775" loading="lazy"
+                                alt="Paradigm — skippable user check-ins for mood and emotional calibration at app launch">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/paradigm/presenting-03.png" data-magnify width="1024" height="774" loading="lazy"
+                                alt="Paradigm — familiar interaction design with infinite scroll, AI search, and dark mode">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/paradigm/presenting-04.png" data-magnify width="1024" height="845" loading="lazy"
+                                alt="Paradigm — dual AI-powered search for social video and mindfulness content">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/paradigm/presenting-05.png" data-magnify width="1024" height="823" loading="lazy"
+                                alt="Paradigm — certified wellness experts with secure messaging and appointment booking">
+                        </figure>
+                    </div>
+                    <div class="case-visual-carousel__toolbar">
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M15 18l-6-6 6-6" />
                             </svg>
                         </button>
-                        <p class="case-pdf-viewer__status" aria-live="polite">
-                            <span data-pdf-current>1</span> / <span data-pdf-total>—</span>
-                        </p>
-                        <button type="button" class="case-pdf-viewer__arrow" data-pdf-next aria-label="Next page"
-                            disabled>
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" aria-hidden="true">
+                        <div class="case-visual-carousel__dots" aria-label="Slide position"></div>
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
                         </button>
                     </div>
-                    <div class="case-pdf-viewer__stage">
-                        <canvas data-pdf-canvas aria-label="Presentation page"></canvas>
-                        <p class="case-pdf-viewer__loading" data-pdf-loading>Loading presentation…</p>
-                        <p class="case-pdf-viewer__error" data-pdf-error hidden>Couldn&rsquo;t load the presentation.
-                            <a href="assets/paradigm/paradigm-capstone-report.pdf" target="_blank" rel="noopener">Open the PDF directly</a>.</p>
+                </div>
+                <div class="case-figma-prototype" data-figma-prototype role="region" aria-label="Paradigm interactive prototype"
+                    data-figma-embed="https://embed.figma.com/proto/bfXd4rvLudF1jGeHk49uxv/Paradigm?node-id=378-9002&amp;p=f&amp;viewport=220%2C357%2C0.13&amp;scaling=scale-down&amp;content-scaling=fixed&amp;starting-point-node-id=363%3A8624&amp;page-id=0%3A1&amp;embed-host=share&amp;footer=false"
+                    data-figma-open="https://www.figma.com/proto/bfXd4rvLudF1jGeHk49uxv/Paradigm?node-id=378-9002&amp;p=f&amp;starting-point-node-id=363%3A8624&amp;page-id=0%3A1">
+                    <p class="case-figma-prototype__intro">Try the interactive prototype:</p>
+                    <div class="case-figma-prototype__frame">
+                        <div class="case-figma-prototype__stage" data-figma-stage>
+                            <p class="case-figma-prototype__loading" data-figma-loading>Loading prototype&hellip;</p>
+                        </div>
+                    </div>
+                    <div class="case-figma-prototype__toolbar">
+                        <a class="case-figma-prototype__external" data-figma-external href="https://www.figma.com/proto/bfXd4rvLudF1jGeHk49uxv/Paradigm?node-id=378-9002&amp;p=f&amp;starting-point-node-id=363%3A8624&amp;page-id=0%3A1" target="_blank" rel="noopener">Open in Figma</a>
+                        <button type="button" class="case-figma-prototype__reload" data-figma-reload hidden>Reload prototype</button>
                     </div>
                 </div>
             </section>
+            </div>
         </div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
         <div class="site-footer-inner">
             <p>&copy; 2026 Christian Neri</p>
-            <p><a href="mailto:contact@christianneri.com">contact@christianneri.com</a></p>
         </div>
     </footer>
 
-    <div class="lightbox" id="lightbox-paradigm" role="dialog" aria-modal="true"
-        aria-labelledby="lightbox-paradigm-title" hidden data-lightbox-root data-open-button="open-paradigm-gallery">
-        <div class="lightbox-backdrop" data-lightbox-close></div>
-        <div class="lightbox-panel">
-            <p id="lightbox-paradigm-title" class="visually-hidden">Paradigm product screens gallery</p>
-            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close gallery">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-            </button>
-            <div class="lightbox-carousel">
-                <div class="lightbox-viewport" tabindex="0" aria-label="Paradigm product screens">
-                    <figure class="lightbox-slide">
-                        <img src="assets/paradigm/cover.png" alt="Paradigm — overview of product screens">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/paradigm/slide-01.png"
-                            alt="Paradigm — dual search and contextual recommendations">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/paradigm/slide-02.png" alt="Paradigm — guided emotional check-ins">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/paradigm/slide-03.png" alt="Paradigm — adaptive feed with dark mode">
-                    </figure>
-                </div>
-                <div class="lightbox-toolbar">
-                    <button type="button" class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous image">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <div class="lightbox-dots" aria-label="Gallery position"></div>
-                    <button type="button" class="lightbox-arrow lightbox-arrow--next" aria-label="Next image">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="assets/vendor/pdfjs/pdf.min.js"></script>
-    <script>
-        if (typeof pdfjsLib !== "undefined") {
-            pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-                "assets/vendor/pdfjs/pdf.worker.min.js",
-                window.location.href
-            ).href;
-        }
-    </script>
     <script src="main.js" defer></script>
 </body>
 

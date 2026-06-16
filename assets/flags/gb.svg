@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 40" aria-hidden="true">
+  <rect width="56" height="40" fill="#012169"/>
+  <clipPath id="gb-canton"><rect width="28" height="20"/></clipPath>
+  <g clip-path="url(#gb-canton)">
+    <rect width="28" height="20" fill="#012169"/>
+    <path stroke="#fff" stroke-width="4" d="M0 0l28 20M28 0L0 20"/>
+    <path stroke="#c8102e" stroke-width="2.5" d="M0 0l28 20M28 0L0 20"/>
+    <path fill="#fff" d="M11 0h6v20h-6V0zM0 7h28v6H0V7z"/>
+    <path fill="#c8102e" d="M12 0h4v20h-4V0zM0 8.5h28v3H0v-3z"/>
+  </g>
+  <path stroke="#fff" stroke-width="10" d="M0 0l56 40M56 0L0 40"/>
+  <path stroke="#c8102e" stroke-width="6" d="M0 0l56 40M56 0L0 40"/>
+  <path fill="#fff" d="M23 0h10v40H23V0zM0 15h56v10H0V15z"/>
+  <path fill="#c8102e" d="M25 0h6v40h-6V0zM0 17h56v6H0V17z"/>
+</svg>

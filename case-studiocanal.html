@@ -6,28 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studiocanal corporate website — Case study | Christian Neri</title>
     <meta name="description"
-        content="Corporate web redesign for Studiocanal — IA, UX, and art direction elevating an iconic library brand.">
+        content="STUDIOCANAL corporate website redesign — a premium global digital platform for one of the world&rsquo;s largest film libraries.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <!-- Paint-bridge: same #fbfbfa as the zoom curtain; dissolves once layout is settled -->
     <div class="case-zoom-cover" aria-hidden="true"></div>
     <a class="skip-link" href="#case-main">Skip to case study</a>
 
     <header class="site-header site-header--case" role="banner">
-        <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m15 18-6-6 6-6" />
-            </svg>
-            <span>Back</span>
-        </a>
+        <div class="case-header-nav">
+            <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                <span>Back</span>
+            </a>
+            <div class="case-study-switcher-wrap">
+                <label class="visually-hidden" for="case-study-switcher">Switch case study</label>
+                <select class="case-study-switcher" id="case-study-switcher" data-case-study-switcher
+                    data-case-current="case-studiocanal.html">
+                    <option value="case-paradigm.html">Paradigm</option>
+                    <option value="case-studiocanal.html">Studiocanal</option>
+                    <option value="case-radioactive.html">Radioactive</option>
+                </select>
+            </div>
+        </div>
     </header>
 
     <header class="case-hero-screen" aria-labelledby="sc-title">
@@ -37,14 +47,23 @@
                     <h1 id="sc-title" class="work-macbook__title">Studiocanal corporate website</h1>
                     <div class="work-macbook__tags">
                         <span class="tag">Web</span>
-                        <span class="tag">Information architecture</span>
+                        <span class="tag">IA</span>
                         <span class="tag">Corporate</span>
                     </div>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Context:</strong></span> A flagship web presence for one of the world&apos;s largest film libraries.</p>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Goal:</strong></span> Elevate IA, art direction, and UX so a concise footprint reads as genuinely premium.</p>
+                    <div class="case-hero-meta">
+                        <div class="case-hero-meta__block">
+                            <p class="case-design-stack__heading">Challenge</p>
+                            <p class="case-hero-meta__text">Transform a European media powerhouse from meager online presence to a premium showcase of the world&rsquo;s third-largest film library.</p>
+                        </div>
+                    </div>
+                    <hr class="section-divider case-hero-divider" aria-hidden="true">
+                    <div class="hero-actions case-hero-actions">
+                        <a class="btn btn--primary" href="#sc-lede">Get started</a>
+                        <a class="btn btn--secondary" href="#sc-outcome">See results</a>
+                    </div>
                 </div>
                 <div class="work-macbook__visual">
-                    <img src="https://framerusercontent.com/images/9H4K7M1LpYnU5u8Y.png" alt="Studiocanal corporate website redesign" loading="eager" fetchpriority="high">
+                    <img src="assets/studiocanal/macbook-mockup.png" alt="STUDIOCANAL corporate website on MacBook Pro" loading="eager" fetchpriority="high">
                 </div>
             </div>
         </div>
@@ -59,62 +78,242 @@
             <span aria-current="page">Studiocanal</span>
         </nav>
 
-        <header class="case-overview">
-            <p class="case-sub">A flagship web presence for one of the world&apos;s largest film libraries — designed to
-                respect legacy IP while signaling future-forward distribution strategy.</p>
-            <div class="case-meta-list">
-                <div>
-                    <p class="case-meta-label">Scope</p>
-                    <p class="case-meta-value">IA, UX, art direction</p>
+        <div class="case-prose-panel case-prose-panel--reading">
+            <nav class="case-dial" data-case-dial aria-label="Case study sections"></nav>
+            <div class="case-prose-panel__rail" aria-hidden="true"></div>
+            <div class="case-prose-panel__content" data-case-read-panel>
+            <section class="case-section case-section--lede" aria-labelledby="sc-lede">
+                <p class="case-read-time" data-case-read-time>4 minute read</p>
+                <h2 id="sc-lede" class="case-lede-title">Building a global digital home for one of the world&rsquo;s largest film libraries</h2>
+                <figure class="case-figure">
+                    <img src="assets/studiocanal/macbook-mockup.png"
+                        alt="STUDIOCANAL corporate website redesign on MacBook Pro"
+                        loading="eager" fetchpriority="high" width="800" height="600">
+                </figure>
+                
+    
+                <p>STUDIOCANAL is one of Europe&rsquo;s leading film and television studios, financing, producing, and distributing hundreds of films and series while managing one of the world&rsquo;s largest film libraries. Yet despite its global footprint, the company lacked a unified international digital presence.</p>
+                <p>The project emerged from a business challenge that extended far beyond visual design:</p>
+                <blockquote class="case-pullquote">
+                    <p>How do you create a single digital platform capable of representing a global entertainment brand while serving the diverse needs of distributors, media, talent, and internal marketing teams across multiple international markets?</p>
+                </blockquote>
+                <p>What began as a website redesign quickly evolved into a broader exercise in information architecture, stakeholder alignment, content strategy, and platform governance.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-context-questions">
+                <h2 id="sc-context-questions">The context &amp; key questions</h2>
+                <p>Over the years, STUDIOCANAL&rsquo;s digital presence had evolved into a fragmented ecosystem of regional websites, inconsistent experiences, and disconnected content structures.</p>
+                <p>At the same time, the business was experiencing significant international growth and increasingly needed a centralized platform capable of supporting:</p>
+                <ul class="case-list">
+                    <li>global brand positioning</li>
+                    <li>distributor communications</li>
+                    <li>media relations</li>
+                    <li>talent engagement</li>
+                    <li>content discovery</li>
+                    <li>international marketing initiatives</li>
+                </ul>
+                <p>Several strategic questions guided the project:</p>
+                <ul class="case-list">
+                    <li>How should a modern entertainment studio present itself digitally?</li>
+                    <li>How can a single platform serve multiple stakeholder groups with different goals?</li>
+                    <li>How can content be structured to showcase both the breadth and quality of STUDIOCANAL&rsquo;s catalogue?</li>
+                    <li>How can marketing teams retain flexibility without compromising consistency?</li>
+                </ul>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-problem">
+                <h2 id="sc-problem">The problem</h2>
+                <p>Although STUDIOCANAL possessed one of the industry&rsquo;s most valuable content catalogues, there was no cohesive digital experience reflecting the scale of the organization.</p>
+                <p>The existing ecosystem created several challenges:</p>
+                <ul class="case-list">
+                    <li>fragmented regional experiences</li>
+                    <li>inconsistent brand presentation</li>
+                    <li>limited content discoverability</li>
+                    <li>inefficient publishing workflows</li>
+                    <li>lack of a centralized communication platform</li>
+                </ul>
+                <p>Internally, marketing and publicity teams also lacked the flexibility needed to support evolving business priorities and international campaigns.</p>
+                <p>The challenge became:</p>
+                <blockquote class="case-pullquote">
+                    <p>How might we create a premium, scalable digital platform that showcases STUDIOCANAL&rsquo;s world-class catalogue while empowering international teams to communicate effectively with distributors, media, and industry stakeholders?</p>
+                </blockquote>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-research">
+                <h2 id="sc-research">Research &amp; discovery</h2>
+                <p>The project began with a comprehensive discovery phase focused on understanding both user needs and business objectives. Stakeholder workshops and interviews helped uncover the requirements of:</p>
+                <ul class="case-list">
+                    <li>international marketing teams</li>
+                    <li>publicity teams</li>
+                    <li>content teams</li>
+                    <li>distributors</li>
+                    <li>media stakeholders</li>
+                </ul>
+                <p>This process revealed that an earlier website prototype had not adequately addressed many of the operational requirements of the teams responsible for maintaining and leveraging the platform. Alongside stakeholder discovery, I conducted:</p>
+                <ul class="case-list">
+                    <li>competitive benchmarking of entertainment and media platforms</li>
+                    <li>content audits and inventory analysis</li>
+                    <li>information architecture reviews</li>
+                    <li>user journey mapping</li>
+                </ul>
+                <p>One insight quickly emerged:</p>
+                <blockquote class="case-pullquote case-pullquote--insight">
+                    <span class="case-pullquote__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6"/>
+                            <path d="M10 22h4"/>
+                            <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+                        </svg>
+                    </span>
+                    <p><span class="case-pullquote__label">Insight:</span> The website needed to function as both a premium showcase and a business tool.</p>
+                </blockquote>
+                <p>Success would depend not only on presenting content effectively, but also on enabling internal teams to communicate strategically and adapt the platform to changing business needs.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-thinking">
+                <h2 id="sc-thinking">Product thinking &amp; design decisions</h2>
+                <p>The project ultimately became an exercise in balancing content discovery, business flexibility, and brand storytelling.</p>
+
+                <h3 class="case-subhead">Reframing the platform around user goals</h3>
+                <p>Rather than organizing the experience around internal company structures, the information architecture was redesigned around the needs and expectations of key audiences. This required rethinking:</p>
+                <ul class="case-list">
+                    <li>navigation structure</li>
+                    <li>content hierarchy</li>
+                    <li>discovery pathways</li>
+                    <li>content relationships</li>
+                </ul>
+                <p>The goal was to reduce friction and align the experience with users&rsquo; existing mental models of modern entertainment platforms.</p>
+
+                <h3 class="case-subhead">Designing a content-first experience</h3>
+                <p>Research and benchmarking highlighted the importance of allowing content to lead the experience. The redesigned platform adopted a more curated, visually-driven approach that emphasized:</p>
+                <ul class="case-list">
+                    <li>film and television titles</li>
+                    <li>talent</li>
+                    <li>catalogue depth</li>
+                    <li>editorial storytelling</li>
+                </ul>
+                <p>This shifted the focus away from corporate information and toward the creative assets that define the brand.</p>
+
+                <h3 class="case-subhead">Building flexibility into the system</h3>
+                <p>A critical business requirement was ensuring that international marketing teams could evolve and customize communications without requiring major platform changes.</p>
+                <p>This led to a more modular content structure that allowed teams to:</p>
+                <ul class="case-list">
+                    <li>support campaign launches</li>
+                    <li>highlight priority content</li>
+                    <li>publish updates efficiently</li>
+                    <li>adapt communications to changing business needs</li>
+                </ul>
+                <p>The platform needed to scale alongside the organization.</p>
+                <figure class="case-figure">
+                    <img src="assets/studiocanal/wireframes-movies-page.png" data-magnify
+                        alt="STUDIOCANAL Movies page wireframes — two layout options showing hero banner, content rails, library exploration categories, and editorialized catalogue rows"
+                        loading="lazy" width="1200" height="800">
+                </figure>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-iteration">
+                <h2 id="sc-iteration">Iteration &amp; implementation</h2>
+                <p>By the time I joined the project, an earlier prototype already existed. Rather than starting from scratch, the process focused on identifying gaps, refining requirements, and evolving the solution. The revised approach included:</p>
+                <ul class="case-list">
+                    <li>a redefined information architecture</li>
+                    <li>a simplified global navigation system</li>
+                    <li>improved content organization</li>
+                    <li>enhanced stakeholder alignment</li>
+                    <li>a new WordPress-based implementation</li>
+                </ul>
+                <p>As development progressed, additional complexity emerged due to integrations with external databases and content systems. These technical constraints introduced new challenges around:</p>
+                <ul class="case-list">
+                    <li>content synchronization</li>
+                    <li>metadata structures</li>
+                    <li>scalability</li>
+                    <li>international deployment</li>
+                </ul>
+                <p>Working through these dependencies became a key part of delivering a viable minimum product.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="sc-outcome">
+                <h2 id="sc-outcome">Results &amp; reflection</h2>
+                <dl class="case-project-stats">
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Integrated films</dt>
+                        <dd class="case-project-stats__value">6k+</dd>
+                        <dd class="case-project-stats__label">integrated films</dd>
+                    </div>
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Monthly visitors at launch</dt>
+                        <dd class="case-project-stats__value case-project-stats__value--emphasis">18k</dd>
+                        <dd class="case-project-stats__label">monthly visitors at launch</dd>
+                    </div>
+                    <div class="case-project-stats__stat">
+                        <dt class="visually-hidden">Localized versions</dt>
+                        <dd class="case-project-stats__value">5</dd>
+                        <dd class="case-project-stats__label">localized versions</dd>
+                    </div>
+                </dl>
+                <p>The platform launched successfully in 2021 and was subsequently localized across key territories including: United Kingdom, France, Germany, Australia, and New Zealand.</p>
+                <p>The project transformed STUDIOCANAL&rsquo;s digital presence from a fragmented collection of regional websites into a unified global platform capable of supporting both brand storytelling and business objectives.</p>
+                <p>Most importantly, the website provided the organization with a premium showcase worthy of its catalogue and international reputation.</p>
+
+                <div class="case-visual-carousel" data-case-carousel aria-label="STUDIOCANAL website screenshots">
+                    <div class="case-visual-carousel__viewport" tabindex="0" aria-label="STUDIOCANAL website gallery">
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/studiocanal/screenshot-homepage-hero.png" data-magnify width="1200" height="800" loading="lazy"
+                                alt="STUDIOCANAL homepage — cinematic hero for The Night Logan Woke Up with featured title carousel and latest news">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/studiocanal/screenshot-movies-carousel.png" data-magnify width="1200" height="800" loading="lazy"
+                                alt="STUDIOCANAL homepage — New &amp; Upcoming Movies and TV Series content rails">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/studiocanal/screenshot-movies-whats-love.png" data-magnify width="1200" height="800" loading="lazy"
+                                alt="STUDIOCANAL Movies page — What&rsquo;s Love Got to Do with It? hero and featured release rails">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/studiocanal/screenshot-news-catalogue.png" data-magnify width="1200" height="800" loading="lazy"
+                                alt="STUDIOCANAL homepage — latest news module and Explore the STUDIOCANAL Catalogue section">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/studiocanal/screenshot-cat-person.png" data-magnify width="1200" height="800" loading="lazy"
+                                alt="STUDIOCANAL title page — Cat Person film detail with trailer, metadata, and synopsis">
+                        </figure>
+                    </div>
+                    <div class="case-visual-carousel__toolbar">
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="case-visual-carousel__dots" aria-label="Slide position"></div>
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <p class="case-meta-label">Challenge</p>
-                    <p class="case-meta-value">Minimal footprint, premium read</p>
-                </div>
-                <div>
-                    <p class="case-meta-label">Goal</p>
-                    <p class="case-meta-value">Elevate corporate storytelling</p>
-                </div>
+
+                <h3 class="case-subhead">Reflection</h3>
+                <p>One of the most valuable lessons from this project was recognizing that successful digital experiences are often less about interface design and more about organizational alignment.</p>
+                <p>The most important design decisions emerged from:</p>
+                <ul class="case-list">
+                    <li>understanding stakeholder needs</li>
+                    <li>defining content strategy</li>
+                    <li>structuring information effectively</li>
+                    <li>creating systems that could scale</li>
+                </ul>
+                <p>The project reinforced a principle that continues to shape my work today:</p>
+                <blockquote class="case-pullquote">
+                    <p>Strong digital products rarely succeed because of visuals alone. They succeed when user needs, business goals, content strategy, and operational realities are aligned within a cohesive system.</p>
+                </blockquote>
+            </section>
             </div>
-        </header>
-
-        <section class="case-section" aria-labelledby="sc-context">
-            <h2 id="sc-context">Context</h2>
-            <p>Studiocanal&apos;s corporate site must surface complex library offerings, global partnerships, and investor-grade
-                clarity without overwhelming visitors. The mandate: deliver an editorially confident experience that reads
-                premium even when page templates stay intentionally lean.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="sc-goal">
-            <h2 id="sc-goal">Goal</h2>
-            <p><span class="prose-strong">Information architecture, art direction, and UX to elevate a minimal footprint into a premium corporate showcase.</span>
-                The redesign sequences proof points cinematically — bold hero statements, tactile modules for featured slates,
-                and structured pathways for institutional audiences.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="sc-approach">
-            <h2 id="sc-approach">Approach</h2>
-            <p>Hierarchies were stress-tested across stakeholders spanning marketing, acquisitions, and press relations.
-                Component families balance modular scalability with cinematic photography treatments, emphasizing texture and depth
-                over ornament. Interaction patterns prioritize scan-friendly hierarchy and frictionless localization hooks for
-                global teams.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="sc-visual">
-            <h2 id="sc-visual">Key visual reference</h2>
-            <p>Featured frame from the redesigned corporate footprint — illustrative of tonal direction alongside broader IA
-                work.</p>
-            <figure class="case-figure">
-                <img src="https://framerusercontent.com/images/9H4K7M1LpYnU5u8Y.png"
-                    alt="Studiocanal corporate website interface preview">
-            </figure>
-        </section>
+        </div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
         <div class="site-footer-inner">
             <p>&copy; 2026 Christian Neri</p>
-            <p><a href="mailto:contact@christianneri.com">contact@christianneri.com</a></p>
         </div>
     </footer>
 

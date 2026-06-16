@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 40" aria-hidden="true">
+  <rect width="56" height="40" fill="#00247d"/>
+  <clipPath id="nz-canton"><rect width="28" height="20"/></clipPath>
+  <g clip-path="url(#nz-canton)">
+    <rect width="28" height="20" fill="#012169"/>
+    <path stroke="#fff" stroke-width="4" d="M0 0l28 20M28 0L0 20"/>
+    <path stroke="#c8102e" stroke-width="2.5" d="M0 0l28 20M28 0L0 20"/>
+    <path fill="#fff" d="M11 0h6v20h-6V0zM0 7h28v6H0V7z"/>
+    <path fill="#c8102e" d="M12 0h4v20h-4V0zM0 8.5h28v3H0v-3z"/>
+  </g>
+  <g fill="#cc142b" stroke="#fff" stroke-width="0.55">
+    <polygon points="42,10 43,12.8 45.8,12.8 43.4,14.5 44.4,17.2 42,15.6 39.6,17.2 40.6,14.5 38.2,12.8 41,12.8"/>
+    <polygon points="50,18 50.8,20.2 53,20.2 51.2,21.5 52,23.7 50,22.3 48,23.7 48.8,21.5 47,20.2 49.2,20.2"/>
+    <polygon points="46,28 46.8,30.2 49,30.2 47.2,31.5 48,33.7 46,32.3 44,33.7 44.8,31.5 43,30.2 45.2,30.2"/>
+    <polygon points="36,24 36.7,25.8 38.5,25.8 37.1,26.9 37.8,28.7 36,27.6 34.2,28.7 34.9,26.9 33.5,25.8 35.3,25.8"/>
+  </g>
+</svg>

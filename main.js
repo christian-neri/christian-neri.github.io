@@ -628,6 +628,7 @@
         var dots = Array.prototype.slice.call(root.querySelectorAll("[data-macbook-index]"));
         var prevBtn = root.querySelector("[data-macbook-prev]");
         var nextBtn = root.querySelector("[data-macbook-next]");
+        var spotlightPanels = Array.prototype.slice.call(root.querySelectorAll("[data-project-spotlight]"));
         var idx = 0;
         var openHoldMs = 320;
 
@@ -650,6 +651,11 @@
                 var on = j === i;
                 btn.classList.toggle("is-active", on);
                 btn.setAttribute("aria-selected", on ? "true" : "false");
+            });
+            spotlightPanels.forEach(function (panel, j) {
+                var on = j === i;
+                panel.classList.toggle("is-active", on);
+                panel.setAttribute("aria-hidden", on ? "false" : "true");
             });
         }
 
@@ -702,10 +708,8 @@
 
         var userHasScrolled = false;
         function markScrolled() { userHasScrolled = true; }
-        var scrollOpts = { passive: true, once: true };
-        window.addEventListener("scroll", markScrolled, scrollOpts);
-        window.addEventListener("wheel", markScrolled, scrollOpts);
-        window.addEventListener("touchmove", markScrolled, scrollOpts);
+        window.addEventListener("wheel", markScrolled, { passive: true, once: true });
+        window.addEventListener("touchmove", markScrolled, { passive: true, once: true });
         window.addEventListener(
             "keydown",
             function (e) {
@@ -724,38 +728,88 @@
             { once: true }
         );
 
-        // Observe the outer container (frost-tilt--work-shell) so the threshold
-        // reflects how much of the entire "Featured work" panel is in view — the
-        // laptop opens only when ~90% of that container has scrolled past the fold.
-        var observeTarget = root.closest(".frost-tilt--work-shell") || unit;
+        // Open when the MacBook itself enters view after the user has scrolled.
+        // Do not observe the full work shell — it is taller than the viewport, so
+        // intersectionRatio never reaches 0.9 and the lid would never trigger.
+        var observeTarget = root.querySelector(".work-macbook__unit") || root;
+        var openThreshold = 0.38;
+
+        function macbookVisibleEnough() {
+            if (!observeTarget) return false;
+            var rect = observeTarget.getBoundingClientRect();
+            var vh = window.innerHeight || document.documentElement.clientHeight;
+            if (rect.bottom <= 0 || rect.top >= vh) return false;
+            var visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+            return visible >= Math.min(rect.height, vh) * openThreshold;
+        }
+
+        function tryOpenFromScroll() {
+            if (!userHasScrolled || openTriggered) return;
+            if (!macbookVisibleEnough()) return;
+            triggerOpen();
+        }
 
         if (typeof IntersectionObserver !== "undefined" && observeTarget) {
             var io = new IntersectionObserver(
                 function (entries) {
                     entries.forEach(function (entry) {
                         if (!entry.isIntersecting) return;
-                        if (entry.intersectionRatio < 0.9) return;
+                        if (entry.intersectionRatio < openThreshold) return;
                         if (!userHasScrolled) return;
                         io.disconnect();
                         triggerOpen();
                     });
                 },
-                { threshold: [0, 0.5, 0.75, 0.9, 1.0] }
+                { threshold: [0, 0.2, openThreshold, 0.55, 0.75] }
             );
             io.observe(observeTarget);
-        } else {
-            // Fallback: open when the container's bottom edge is near the viewport bottom.
-            var onScroll = function () {
-                if (!observeTarget) return;
-                var rect = observeTarget.getBoundingClientRect();
-                var vh = window.innerHeight || document.documentElement.clientHeight;
-                if (rect.bottom < vh * 1.05 && rect.top < vh) {
-                    window.removeEventListener("scroll", onScroll);
-                    triggerOpen();
-                }
-            };
-            window.addEventListener("scroll", onScroll, { passive: true });
         }
+
+        window.addEventListener(
+            "scroll",
+            function () {
+                markScrolled();
+                tryOpenFromScroll();
+            },
+            { passive: true }
+        );
+
+        /* Explicit jump to #work (nav toggle, CTAs) — open after scroll settles.
+           Scroll-spy path still uses IntersectionObserver above. */
+        function afterScrollSettled(cb) {
+            var done = false;
+            function run() {
+                if (done) return;
+                done = true;
+                cb();
+            }
+            if ("onscrollend" in window) {
+                window.addEventListener("scrollend", run, { once: true, passive: true });
+            }
+            window.setTimeout(run, prefersReducedMotion ? 80 : 780);
+        }
+
+        function onWorkNavIntent() {
+            markScrolled();
+            afterScrollSettled(function () {
+                triggerOpen();
+            });
+        }
+
+        document.addEventListener("click", function (e) {
+            var a = e.target && e.target.closest && e.target.closest('a[href="#work"]');
+            if (!a) return;
+            onWorkNavIntent();
+        });
+
+        if (location.hash === "#work") {
+            if (document.readyState === "complete") onWorkNavIntent();
+            else window.addEventListener("load", onWorkNavIntent, { once: true });
+        }
+
+        window.addEventListener("hashchange", function () {
+            if (location.hash === "#work") onWorkNavIntent();
+        });
 
         /** “View case study” — expand MacBook display rect to full viewport, then navigate */
         (function initMacbookCaseStudyZoom() {
@@ -898,16 +952,20 @@
         var map = document.getElementById("about-map");
         if (!map) return;
 
-        var countries = Array.prototype.slice.call(map.querySelectorAll(".country"));
+        var triggers = Array.prototype.slice.call(map.querySelectorAll(".country[data-loc], .map-pin[data-loc]"));
         var cards     = Array.prototype.slice.call(map.querySelectorAll(".about-map__card"));
+        var usaWrap   = map.querySelector(".country-wrap--usa");
 
         function activate(loc) {
             map.setAttribute("data-active", loc);
-            countries.forEach(function (c) {
-                var on = c.getAttribute("data-loc") === loc;
-                c.classList.toggle("is-active", on);
-                c.setAttribute("aria-pressed", on ? "true" : "false");
+            triggers.forEach(function (t) {
+                var on = t.getAttribute("data-loc") === loc;
+                t.classList.toggle("is-active", on);
+                t.setAttribute("aria-pressed", on ? "true" : "false");
             });
+            if (usaWrap) {
+                usaWrap.classList.toggle("is-active", loc === "atlanta" || loc === "losangeles");
+            }
             cards.forEach(function (card) {
                 card.setAttribute("aria-hidden", card.getAttribute("data-loc") === loc ? "false" : "true");
             });
@@ -915,36 +973,144 @@
 
         function deactivate() {
             map.removeAttribute("data-active");
-            countries.forEach(function (c) {
-                c.classList.remove("is-active");
-                c.setAttribute("aria-pressed", "false");
+            triggers.forEach(function (t) {
+                t.classList.remove("is-active");
+                t.setAttribute("aria-pressed", "false");
             });
+            if (usaWrap) usaWrap.classList.remove("is-active");
             cards.forEach(function (card) { card.setAttribute("aria-hidden", "true"); });
         }
 
-        countries.forEach(function (c) {
-            var loc = c.getAttribute("data-loc");
+        triggers.forEach(function (t) {
+            var loc = t.getAttribute("data-loc");
 
-            c.addEventListener("mouseenter", function () { activate(loc); });
-            c.addEventListener("focus",      function () { activate(loc); });
+            t.addEventListener("mouseenter", function () { activate(loc); });
+            t.addEventListener("focus",      function () { activate(loc); });
 
             /* On touch + keyboard: click toggles open/closed */
-            c.addEventListener("click", function (e) {
+            t.addEventListener("click", function (e) {
                 e.preventDefault();
-                if (c.classList.contains("is-active")) deactivate();
+                if (t.classList.contains("is-active")) deactivate();
                 else activate(loc);
             });
 
-            c.addEventListener("keydown", function (e) {
-                if (e.key === "Escape") { deactivate(); c.blur(); }
+            t.addEventListener("keydown", function (e) {
+                if (e.key === "Escape") { deactivate(); t.blur(); }
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    if (t.classList.contains("is-active")) deactivate();
+                    else activate(loc);
+                }
             });
         });
+
+        /* US has two cities — default to Atlanta when hovering the map (pins override). */
+        if (usaWrap) {
+            usaWrap.addEventListener("mouseenter", function (e) {
+                if (e.target.closest && e.target.closest(".map-pin[data-loc]")) return;
+                activate("atlanta");
+            });
+        }
 
         /* Leave the row → close any active card (but keep cards visible if user
            moved their pointer ONTO a card — cards are inside .about-map__cards
            which is outside the row, so that's safe). */
         var row = map.querySelector(".about-map__row");
         if (row) row.addEventListener("mouseleave", deactivate);
+    }
+
+    function initCaseCarousels() {
+        document.querySelectorAll("[data-case-carousel]").forEach(function (root) {
+            var vp = root.querySelector(".case-visual-carousel__viewport");
+            var toolbar = root.querySelector(".case-visual-carousel__toolbar");
+            var dotsWrap = toolbar ? toolbar.querySelector(".case-visual-carousel__dots") : null;
+            var prevBtn = toolbar ? toolbar.querySelector(".case-visual-carousel__arrow--prev") : null;
+            var nextBtn = toolbar ? toolbar.querySelector(".case-visual-carousel__arrow--next") : null;
+            var slides = vp ? vp.querySelectorAll(".case-visual-carousel__slide") : [];
+            if (!vp || !slides.length) return;
+
+            function maxIdx() {
+                return Math.max(0, slides.length - 1);
+            }
+
+            function currentIndex() {
+                var w = vp.clientWidth;
+                if (w <= 0) return 0;
+                return Math.round(vp.scrollLeft / w);
+            }
+
+            function syncControls() {
+                var idx = currentIndex();
+                if (prevBtn) prevBtn.disabled = idx <= 0;
+                if (nextBtn) nextBtn.disabled = idx >= maxIdx();
+                if (!dotsWrap) return;
+                dotsWrap.querySelectorAll(".case-visual-carousel__dot").forEach(function (d, j) {
+                    var on = j === idx;
+                    d.classList.toggle("case-visual-carousel__dot--active", on);
+                    if (on) d.setAttribute("aria-current", "true");
+                    else d.removeAttribute("aria-current");
+                });
+            }
+
+            function buildDots() {
+                if (!dotsWrap) return;
+                dotsWrap.innerHTML = "";
+                for (var i = 0; i < slides.length; i++) {
+                    var b = document.createElement("button");
+                    b.type = "button";
+                    b.className = "case-visual-carousel__dot";
+                    b.setAttribute("aria-label", "Slide " + (i + 1) + " of " + slides.length);
+                    b.addEventListener(
+                        "click",
+                        (function (idx) {
+                            return function () {
+                                goTo(idx);
+                            };
+                        })(i)
+                    );
+                    dotsWrap.appendChild(b);
+                }
+                syncControls();
+            }
+
+            function goTo(i) {
+                var w = vp.clientWidth;
+                if (w <= 0) return;
+                vp.scrollTo({ left: i * w, behavior: prefersReducedMotion ? "instant" : "smooth" });
+                syncControls();
+            }
+
+            buildDots();
+
+            vp.addEventListener("scroll", function () {
+                window.requestAnimationFrame(syncControls);
+            });
+
+            if (prevBtn) {
+                prevBtn.addEventListener("click", function () {
+                    goTo(Math.max(0, currentIndex() - 1));
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener("click", function () {
+                    goTo(Math.min(maxIdx(), currentIndex() + 1));
+                });
+            }
+
+            vp.addEventListener("keydown", function (e) {
+                if (e.key === "ArrowLeft") {
+                    e.preventDefault();
+                    goTo(Math.max(0, currentIndex() - 1));
+                } else if (e.key === "ArrowRight") {
+                    e.preventDefault();
+                    goTo(Math.min(maxIdx(), currentIndex() + 1));
+                }
+            });
+
+            window.addEventListener("resize", function () {
+                goTo(currentIndex());
+            });
+        });
     }
 
     /**
@@ -1020,152 +1186,260 @@
         });
     }
 
-    /**
-     * Paradigm capstone PDF — custom page-by-page canvas viewer (PDF.js).
-     */
-    function initParadigmPdfViewer() {
-        var root = document.querySelector("[data-paradigm-pdf]");
-        if (!root || typeof pdfjsLib === "undefined") return;
+    function dialLabel(h2, title) {
+        var overrides = {
+            "paradigm-lede": "Overview",
+            "paradigm-context-questions": "Context",
+            "paradigm-problem": "Problem",
+            "paradigm-thinking": "Design decisions",
+            "paradigm-iteration": "Iterations",
+            "paradigm-outcome": "Outcome",
+            "paradigm-presenting": "Presenting",
+            "paradigm-presentation": "Presenting",
+            "sc-lede": "Overview",
+            "sc-context-questions": "Context",
+            "sc-problem": "Problem",
+            "sc-research": "Discovery",
+            "sc-thinking": "Design decisions",
+            "sc-iteration": "Implementation",
+            "sc-outcome": "Outcome",
+            "sc-presenting": "Presenting",
+            "radio-lede": "Overview",
+            "radio-context-questions": "Context",
+            "radio-problem": "Problem",
+            "radio-research": "Research",
+            "radio-thinking": "Design decisions",
+            "radio-iteration": "Validation",
+            "radio-outcome": "Outcome",
+            "radio-presenting": "Presenting"
+        };
+        return overrides[h2.id] || title;
+    }
 
-        var srcAttr = root.getAttribute("data-pdf-src");
-        if (!srcAttr) return;
+    function initCaseReadingProgress() {
+        var dial = document.querySelector("[data-case-dial]");
+        var panel = document.querySelector("[data-case-read-panel]");
+        var readTimeEl = document.querySelector("[data-case-read-time]");
+        if (!panel) return;
 
-        var src = new URL(srcAttr, window.location.href).href;
-        var canvas = root.querySelector("[data-pdf-canvas]");
-        var loadingEl = root.querySelector("[data-pdf-loading]");
-        var errorEl = root.querySelector("[data-pdf-error]");
-        var currentEl = root.querySelector("[data-pdf-current]");
-        var totalEl = root.querySelector("[data-pdf-total]");
-        var prevBtn = root.querySelector("[data-pdf-prev]");
-        var nextBtn = root.querySelector("[data-pdf-next]");
-        var stage = root.querySelector(".case-pdf-viewer__stage");
-
-        if (!canvas || !stage || !prevBtn || !nextBtn) return;
-
-        var ctx = canvas.getContext("2d");
-        var pdfDoc = null;
-        var pageNum = 1;
-        var rendering = false;
-        var pendingPage = null;
-        var resizeTimer = null;
-
-        canvas.hidden = true;
-
-        function setControls() {
-            prevBtn.disabled = !pdfDoc || pageNum <= 1;
-            nextBtn.disabled = !pdfDoc || pageNum >= pdfDoc.numPages;
-            if (currentEl) currentEl.textContent = String(pageNum);
+        if (readTimeEl) {
+            var words = panel.textContent.trim().split(/\s+/).filter(Boolean).length;
+            var minutes = Math.max(1, Math.round(words / 220));
+            readTimeEl.textContent = minutes + " minute read";
         }
 
-        function showError() {
+        if (!dial) return;
+
+        var sections = Array.prototype.slice.call(panel.querySelectorAll(":scope > .case-section"));
+        var items = sections.map(function (sec) {
+            var h2 = sec.querySelector("h2[id]");
+            if (!h2) return null;
+            var title = h2.textContent.trim();
+            return {
+                id: h2.id,
+                section: sec,
+                title: title,
+                label: dialLabel(h2, title)
+            };
+        }).filter(Boolean);
+
+        if (!items.length) return;
+
+        dial.innerHTML =
+            '<div class="case-dial__stage">' +
+                '<div class="case-dial__labels" data-case-dial-labels></div>' +
+                '<div class="case-dial__rail">' +
+                    '<div class="case-dial__track">' +
+                        '<div class="case-dial__fill" data-case-dial-fill></div>' +
+                    '</div>' +
+                    '<div class="case-dial__nodes" data-case-dial-nodes></div>' +
+                '</div>' +
+            '</div>';
+
+        var labelsEl = dial.querySelector("[data-case-dial-labels]");
+        var nodesEl = dial.querySelector("[data-case-dial-nodes]");
+        var fillEl = dial.querySelector("[data-case-dial-fill]");
+        var labelLinks = [];
+        var activeIndex = 0;
+
+        items.forEach(function (item, index) {
+            var pos = items.length === 1 ? 0 : index / (items.length - 1);
+
+            var label = document.createElement("a");
+            label.className = "case-dial__label";
+            label.href = "#" + item.id;
+            label.textContent = item.label;
+            label.style.top = (pos * 100) + "%";
+            labelLinks.push(label);
+            labelsEl.appendChild(label);
+
+            var node = document.createElement("span");
+            node.className = "case-dial__node";
+            node.style.top = (pos * 100) + "%";
+            var pulse = document.createElement("span");
+            pulse.className = "case-dial__node-pulse";
+            pulse.setAttribute("aria-hidden", "true");
+            node.appendChild(pulse);
+            nodesEl.appendChild(node);
+        });
+
+        function dialFillPercent(index) {
+            if (items.length === 1) return 100;
+            return (index / (items.length - 1)) * 100;
+        }
+
+        function setActive(index) {
+            activeIndex = index;
+            labelLinks.forEach(function (link, i) {
+                var dist = Math.abs(i - index);
+                link.classList.toggle("is-active", i === index);
+                link.classList.toggle("is-near", dist === 1);
+                var scale = Math.max(0.78, 1 - dist * 0.11).toFixed(2);
+                link.style.transform = "translateY(-50%) scale(" + scale + ")";
+                link.style.opacity = String(Math.max(0.32, 1 - dist * 0.28));
+            });
+            nodesEl.querySelectorAll(".case-dial__node").forEach(function (node, i) {
+                node.classList.toggle("is-active", i === index);
+                node.classList.toggle("is-passed", i < index);
+            });
+            fillEl.style.height = dialFillPercent(index) + "%";
+        }
+
+        function sectionDocTop(el) {
+            return el.getBoundingClientRect().top + window.scrollY;
+        }
+
+        function resolveActiveIndex() {
+            var marker = window.scrollY + window.innerHeight * 0.32;
+            var current = 0;
+            items.forEach(function (item, index) {
+                if (marker >= sectionDocTop(item.section)) current = index;
+            });
+            return current;
+        }
+
+        function updateDial() {
+            setActive(resolveActiveIndex());
+        }
+
+        labelLinks.forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                e.preventDefault();
+                var id = link.getAttribute("href").replace(/^#/, "");
+                var target = document.getElementById(id);
+                if (target) target.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
+            });
+        });
+
+        setActive(0);
+        window.addEventListener("scroll", updateDial, { passive: true });
+        window.addEventListener("resize", updateDial);
+        updateDial();
+    }
+
+    function initCaseStudySwitcher() {
+        var select = document.querySelector("[data-case-study-switcher]");
+        if (!select) return;
+
+        var current = select.getAttribute("data-case-current");
+        if (current) {
+            select.value = current;
+            Array.prototype.forEach.call(select.options, function (option) {
+                option.disabled = option.value === current;
+            });
+        }
+
+        select.addEventListener("change", function () {
+            if (select.value && select.value !== current) {
+                window.location.href = select.value;
+            }
+        });
+    }
+
+    function initFigmaPrototype() {
+        var root = document.querySelector("[data-figma-prototype]");
+        if (!root) return;
+
+        var embedAttr = root.getAttribute("data-figma-embed");
+        var openAttr = root.getAttribute("data-figma-open");
+        var srcAttr = root.getAttribute("data-figma-src");
+        var stage = root.querySelector("[data-figma-stage]");
+        var loadingEl = root.querySelector("[data-figma-loading]");
+        var externalEl = root.querySelector("[data-figma-external]");
+        var reloadBtn = root.querySelector("[data-figma-reload]");
+        if (!stage) return;
+
+        var embedUrl = embedAttr;
+        var openUrl = openAttr;
+
+        if (!embedUrl && srcAttr) {
+            if (/^https:\/\/embed\.figma\.com\//i.test(srcAttr)) {
+                embedUrl = srcAttr;
+                openUrl = openUrl || srcAttr.replace(/^https:\/\/embed\.figma\.com/i, "https://www.figma.com");
+            } else {
+                embedUrl =
+                    "https://www.figma.com/embed?embed_host=share&url=" +
+                    encodeURIComponent(new URL(srcAttr, window.location.href).href);
+                openUrl = openUrl || srcAttr;
+            }
+        }
+
+        if (embedUrl && embedUrl.indexOf("footer=") === -1) {
+            embedUrl += (embedUrl.indexOf("?") === -1 ? "?" : "&") + "footer=false";
+        }
+
+        if (!embedUrl) return;
+
+        if (externalEl && openUrl) externalEl.href = openUrl;
+
+        var iframe = null;
+        var loaded = false;
+
+        function hideLoading() {
             if (loadingEl) loadingEl.hidden = true;
-            canvas.hidden = true;
-            if (errorEl) errorEl.hidden = false;
-            prevBtn.disabled = true;
-            nextBtn.disabled = true;
+            if (reloadBtn) reloadBtn.hidden = false;
         }
 
-        function renderPage(num) {
-            if (!pdfDoc) return;
+        function mountIframe() {
+            if (iframe || loaded) return;
+            loaded = true;
 
-            var containerWidth = stage.clientWidth;
-            if (containerWidth < 1) {
-                window.requestAnimationFrame(function () {
-                    renderPage(num);
-                });
-                return;
-            }
+            iframe = document.createElement("iframe");
+            iframe.src = embedUrl;
+            iframe.title = "Paradigm interactive prototype";
+            iframe.setAttribute("allowfullscreen", "");
+            iframe.loading = "lazy";
+            iframe.addEventListener("load", hideLoading);
+            stage.appendChild(iframe);
+        }
 
-            rendering = true;
-
-            pdfDoc.getPage(num).then(function (page) {
-                var baseViewport = page.getViewport({ scale: 1 });
-                var scale = containerWidth / baseViewport.width;
-                var outputScale = window.devicePixelRatio || 1;
-                var viewport = page.getViewport({ scale: scale * outputScale });
-
-                canvas.width = viewport.width;
-                canvas.height = viewport.height;
-                canvas.style.width = (viewport.width / outputScale) + "px";
-                canvas.style.height = (viewport.height / outputScale) + "px";
-
-                return page.render({ canvasContext: ctx, viewport: viewport }).promise;
-            }).then(function () {
-                rendering = false;
-                canvas.hidden = false;
-                if (loadingEl) loadingEl.hidden = true;
-                if (pendingPage !== null) {
-                    var queued = pendingPage;
-                    pendingPage = null;
-                    renderPage(queued);
+        if (reloadBtn) {
+            reloadBtn.addEventListener("click", function () {
+                if (!iframe) {
+                    mountIframe();
+                    return;
                 }
-            }).catch(function (err) {
-                rendering = false;
-                if (typeof console !== "undefined" && console.error) {
-                    console.error("Paradigm PDF render:", err);
-                }
-                showError();
+                if (loadingEl) loadingEl.hidden = false;
+                iframe.src = embedUrl;
             });
         }
 
-        function queueRenderPage(num) {
-            if (rendering) pendingPage = num;
-            else renderPage(num);
+        if (typeof IntersectionObserver !== "undefined") {
+            var observer = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            mountIframe();
+                            observer.disconnect();
+                        }
+                    });
+                },
+                { rootMargin: "120px 0px" }
+            );
+            observer.observe(root);
+        } else {
+            mountIframe();
         }
-
-        function goToPage(num) {
-            if (!pdfDoc || num < 1 || num > pdfDoc.numPages) return;
-            pageNum = num;
-            setControls();
-            queueRenderPage(pageNum);
-        }
-
-        prevBtn.addEventListener("click", function () {
-            goToPage(pageNum - 1);
-        });
-
-        nextBtn.addEventListener("click", function () {
-            goToPage(pageNum + 1);
-        });
-
-        root.addEventListener("keydown", function (e) {
-            if (e.key === "ArrowLeft") {
-                e.preventDefault();
-                goToPage(pageNum - 1);
-            } else if (e.key === "ArrowRight") {
-                e.preventDefault();
-                goToPage(pageNum + 1);
-            }
-        });
-
-        window.addEventListener("resize", function () {
-            if (!pdfDoc) return;
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(function () {
-                queueRenderPage(pageNum);
-            }, 150);
-        });
-
-        fetch(src)
-            .then(function (res) {
-                if (!res.ok) throw new Error("HTTP " + res.status);
-                return res.arrayBuffer();
-            })
-            .then(function (buffer) {
-                return pdfjsLib.getDocument({ data: buffer }).promise;
-            })
-            .then(function (pdf) {
-                pdfDoc = pdf;
-                if (totalEl) totalEl.textContent = String(pdf.numPages);
-                setControls();
-                renderPage(pageNum);
-            })
-            .catch(function (err) {
-                if (typeof console !== "undefined" && console.error) {
-                    console.error("Paradigm PDF viewer:", err);
-                }
-                showError();
-            });
     }
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -1178,6 +1452,9 @@
         initLightboxes();
         initAboutMap();
         initImageMagnify();
-        initParadigmPdfViewer();
+        initCaseCarousels();
+        initFigmaPrototype();
+        initCaseReadingProgress();
+        initCaseStudySwitcher();
     });
 })();

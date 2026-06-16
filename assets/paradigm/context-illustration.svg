@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" aria-hidden="true">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f7f4ef"/>
+      <stop offset="100%" stop-color="#efe8dc"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4db3a4"/>
+      <stop offset="100%" stop-color="#389c8c"/>
+    </linearGradient>
+    <linearGradient id="peach" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f0b88a"/>
+      <stop offset="100%" stop-color="#e8a066"/>
+    </linearGradient>
+  </defs>
+  <rect width="220" height="220" rx="28" fill="url(#bg)"/>
+  <circle cx="36" cy="44" r="28" fill="#389c8c" opacity="0.1"/>
+  <circle cx="188" cy="176" r="34" fill="#ae8280" opacity="0.12"/>
+  <!-- Phone / social feed -->
+  <rect x="68" y="28" width="84" height="148" rx="18" fill="#fff" stroke="#e8dfd3" stroke-width="2"/>
+  <rect x="78" y="44" width="64" height="10" rx="5" fill="#ece7df"/>
+  <rect x="78" y="62" width="64" height="34" rx="8" fill="url(#peach)" opacity="0.35"/>
+  <rect x="84" y="68" width="28" height="4" rx="2" fill="#c07f3a" opacity="0.55"/>
+  <rect x="84" y="76" width="46" height="3" rx="1.5" fill="#ae8280" opacity="0.4"/>
+  <rect x="84" y="83" width="38" height="3" rx="1.5" fill="#ae8280" opacity="0.35"/>
+  <circle cx="128" cy="72" r="8" fill="#fff" opacity="0.65"/>
+  <path d="M125 72h6M128 69v6" stroke="#ae8280" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="78" y="102" width="64" height="34" rx="8" fill="#389c8c" opacity="0.16"/>
+  <rect x="84" y="108" width="28" height="4" rx="2" fill="#389c8c" opacity="0.65"/>
+  <rect x="84" y="116" width="46" height="3" rx="1.5" fill="#8d8d8a" opacity="0.45"/>
+  <rect x="78" y="142" width="64" height="22" rx="8" fill="#ece7df"/>
+  <circle cx="92" cy="153" r="5" fill="#ae8280" opacity="0.45"/>
+  <rect x="102" y="150" width="30" height="3" rx="1.5" fill="#8d8d8a" opacity="0.4"/>
+  <!-- Notification bubbles -->
+  <circle cx="148" cy="48" r="10" fill="#c07f3a" opacity="0.85"/>
+  <text x="148" y="52" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#fff">3</text>
+  <circle cx="52" cy="118" r="8" fill="#ae8280" opacity="0.35"/>
+  <!-- Mental health / calm heart -->
+  <circle cx="44" cy="72" r="26" fill="#fff" stroke="url(#teal)" stroke-width="2.5"/>
+  <path d="M44 82c-8-6-14-10-14-16a8 8 0 0 1 14-4 8 8 0 0 1 14 4c0 6-6 10-14 16z" fill="url(#teal)" opacity="0.88"/>
+  <!-- Balance / wellbeing arc -->
+  <path d="M164 118c-10 14-24 22-38 22s-28-8-38-22" fill="none" stroke="#c07f3a" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  <circle cx="126" cy="176" r="18" fill="#fff" stroke="#389c8c" stroke-width="2.5"/>
+  <path d="M126 168v-3M126 184v3M118 176h-3M134 176h3" stroke="#389c8c" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <circle cx="126" cy="176" r="5" fill="#389c8c" opacity="0.25"/>
+</svg>

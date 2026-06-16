@@ -6,28 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Radioactive — Case study | Christian Neri</title>
     <meta name="description"
-        content="Radioactive promotional web experience — retaining engagement when a global cinema release paused mid-campaign.">
+        content="Radioactive film campaign — sustaining audience engagement when a global theatrical launch disappeared overnight.">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,500;0,600;0,700;1,400&family=Red+Hat+Text:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <!-- Paint-bridge: same #fbfbfa as the zoom curtain; dissolves once layout is settled -->
     <div class="case-zoom-cover" aria-hidden="true"></div>
     <a class="skip-link" href="#case-main">Skip to case study</a>
 
     <header class="site-header site-header--case" role="banner">
-        <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="m15 18-6-6 6-6" />
-            </svg>
-            <span>Back</span>
-        </a>
+        <div class="case-header-nav">
+            <a class="case-back-link" href="index.html#work" aria-label="Back to featured work">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6" />
+                </svg>
+                <span>Back</span>
+            </a>
+            <div class="case-study-switcher-wrap">
+                <label class="visually-hidden" for="case-study-switcher">Switch case study</label>
+                <select class="case-study-switcher" id="case-study-switcher" data-case-study-switcher
+                    data-case-current="case-radioactive.html">
+                    <option value="case-paradigm.html">Paradigm</option>
+                    <option value="case-studiocanal.html">Studiocanal</option>
+                    <option value="case-radioactive.html">Radioactive</option>
+                </select>
+            </div>
+        </div>
     </header>
 
     <header class="case-hero-screen" aria-labelledby="radio-title">
@@ -40,11 +50,20 @@
                         <span class="tag">Campaign</span>
                         <span class="tag">Entertainment</span>
                     </div>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Context:</strong></span> Oscar&reg;-nominated Rosamund Pike stars as Marie Curie in Studiocanal&apos;s <em>Radioactive</em> — cinemas shut one month prior to release amid COVID-19.</p>
-                    <p class="work-macbook__line"><span class="goal-label"><strong>Goal:</strong></span> Keep audiences engaged between the paused rollout and delayed premiere windows.</p>
+                    <div class="case-hero-meta">
+                        <div class="case-hero-meta__block">
+                            <p class="case-design-stack__heading">Challenge</p>
+                            <p class="case-hero-meta__text">Keep audiences engaged between the paused rollout and delayed premiere windows.</p>
+                        </div>
+                    </div>
+                    <hr class="section-divider case-hero-divider" aria-hidden="true">
+                    <div class="hero-actions case-hero-actions">
+                        <a class="btn btn--primary" href="#radio-lede">Get started</a>
+                        <a class="btn btn--secondary" href="#radio-outcome">See results</a>
+                    </div>
                 </div>
                 <div class="work-macbook__visual work-macbook__visual--radioactive">
-                    <img src="assets/radioactive/mobile.png" alt="Radioactive promotional website — responsive layout" loading="eager" fetchpriority="high">
+                    <img src="assets/radioactive/hero-mobile.png" alt="Radioactive promotional website — mobile layouts on iPhone" loading="eager" fetchpriority="high">
                 </div>
             </div>
         </div>
@@ -59,110 +78,236 @@
             <span aria-current="page">Radioactive</span>
         </nav>
 
-        <header class="case-overview">
-            <p class="case-sub">Oscar&reg;-nominated Rosamund Pike stars as Marie Curie in Studiocanal&apos;s
-                <em>Radioactive</em>. One month before release, COVID-19 shut cinemas worldwide — the digital experience had
-                to carry narrative momentum through an unprecedented pause.</p>
-            <div class="case-meta-list">
-                <div>
-                    <p class="case-meta-label">Studio</p>
-                    <p class="case-meta-value">Studiocanal</p>
+        <div class="case-prose-panel case-prose-panel--reading">
+            <nav class="case-dial" data-case-dial aria-label="Case study sections"></nav>
+            <div class="case-prose-panel__rail" aria-hidden="true"></div>
+            <div class="case-prose-panel__content" data-case-read-panel>
+            <section class="case-section case-section--lede" aria-labelledby="radio-lede">
+                <p class="case-read-time" data-case-read-time>4 minute read</p>
+                <h2 id="radio-lede" class="case-lede-title">Sustaining audience engagement when a global film launch suddenly disappears</h2>
+                <figure class="case-figure">
+                    <img src="assets/radioactive/home-desktop.png"
+                        alt="Radioactive promotional website homepage — interactive carousel with Pioneer, Genius, and Rebel storytelling cards"
+                        loading="eager" fetchpriority="high" width="1024" height="561">
+                </figure>
+                <p class="case-lede">Reimagining a theatrical digital campaign for a world that could no longer go to the movie theater.</p>
+                <p><em>Radioactive</em> tells the story of Marie Curie, the pioneering scientist whose discoveries transformed medicine, science, and our understanding of the modern world.</p>
+                <p>As part of STUDIOCANAL&rsquo;s international digital team, I was responsible for helping shape the film&rsquo;s digital campaign experience ahead of its planned worldwide theatrical release.</p>
+                <p>Then, one month before release, the COVID-19 pandemic shut down cinemas across the globe.</p>
+                <p>What began as a traditional film marketing challenge quickly became something entirely different:</p>
+                <blockquote class="case-pullquote">
+                    <p>How do you sustain audience interest and momentum for a film that people suddenly cannot see?</p>
+                </blockquote>
+                <p>The project became an exploration of how digital experiences can bridge uncertainty, maintain engagement, and continue delivering value when traditional distribution channels disappear overnight.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-context-questions">
+                <h2 id="radio-context-questions">The context &amp; key questions</h2>
+                <p>In early 2020, <em>Radioactive</em> was preparing for international theatrical release. The campaign&rsquo;s original objective was straightforward:</p>
+                <ul class="case-list">
+                    <li>generate awareness</li>
+                    <li>increase word-of-mouth</li>
+                    <li>drive ticket sales</li>
+                    <li>support theatrical attendance</li>
+                </ul>
+                <p>However, as lockdowns spread internationally, release schedules became uncertain and cinema attendance became impossible in many territories. The challenge was no longer simply promoting a film.</p>
+                <p>Several new questions emerged:</p>
+                <ul class="case-list">
+                    <li>How do we keep audiences engaged during an indefinite delay?</li>
+                    <li>How do we continue building anticipation without a release date?</li>
+                    <li>How can digital channels provide meaningful value beyond traditional marketing content?</li>
+                    <li>How can we strengthen the emotional connection between audiences and Marie Curie&rsquo;s story while they wait?</li>
+                </ul>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-problem">
+                <h2 id="radio-problem">The problem</h2>
+                <p>Traditional film marketing campaigns are designed around a relatively predictable timeline:</p>
+                <p>Trailer &rarr; Awareness &rarr; Ticket Purchase &rarr; Cinema Release</p>
+                <p>The pandemic fundamentally broke that model.</p>
+                <p>Without a clear release path, audiences risked losing interest entirely.</p>
+                <figure class="case-figure case-figure--meta">
+                    <img src="assets/radioactive/problem-statement.png"
+                        alt="Problem statement — audiences need a way to stay up-to-date about release and learn more about Marie Curie&rsquo;s true story and the impacts of her discoveries"
+                        loading="lazy" width="800" height="450">
+                </figure>
+                <p>At the same time, Marie Curie&rsquo;s story offered an opportunity to create a richer experience beyond film promotion alone. Her scientific discoveries continue to influence healthcare, medicine, and modern society today.</p>
+                <p>The challenge became:</p>
+                <blockquote class="case-pullquote">
+                    <p>How might we transform a film campaign website into an educational and storytelling destination that keeps audiences engaged, informed, and connected to the film&rsquo;s themes until release becomes possible?</p>
+                </blockquote>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-research">
+                <h2 id="radio-research">Research &amp; exploration</h2>
+                <p>The project began with a discovery phase focused on understanding both audience motivations and campaign objectives.</p>
+                <p>Drawing on:</p>
+                <ul class="case-list">
+                    <li>audience personas</li>
+                    <li>focus groups</li>
+                    <li>test screening feedback</li>
+                    <li>market research</li>
+                    <li>existing campaign data</li>
+                </ul>
+                <p>I worked to identify the content and experiences most likely to sustain engagement over an extended period.</p>
+                <p>One insight quickly emerged:</p>
+                <blockquote class="case-pullquote case-pullquote--insight">
+                    <span class="case-pullquote__icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 18h6"/>
+                            <path d="M10 22h4"/>
+                            <path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>
+                        </svg>
+                    </span>
+                    <p><span class="case-pullquote__label">Insight:</span> Audiences were interested not only in the film itself, but also in the extraordinary true story behind Marie Curie&rsquo;s scientific legacy.</p>
+                </blockquote>
+                <p>This shifted the opportunity from pure promotion toward education, storytelling, and deeper engagement.</p>
+                <p>A working hypothesis guided the project: by providing educational content alongside film marketing, we could maintain audience interest and provide value even if theatrical release dates shifted. This ultimately shaped the direction of the experience.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-thinking">
+                <h2 id="radio-thinking">Product thinking &amp; design decisions</h2>
+                <p>Rather than creating another conventional movie website, the experience was designed as a content-rich destination that could continue delivering value regardless of release timing.</p>
+
+                <h3 class="case-subhead">Extending the story beyond the film</h3>
+                <p>The platform explored Marie Curie&rsquo;s life, discoveries, and cultural impact through educational content designed to complement the film experience. This transformed the website from a promotional asset into an experience capable of standing on its own. The goal was not simply to advertise a film. It was to deepen understanding of the person behind the story.</p>
+
+                <h3 class="case-subhead">Balancing marketing and education</h3>
+                <p>One of the central design challenges was balancing commercial objectives with audience value.</p>
+                <p>The experience combined:</p>
+                <ul class="case-list">
+                    <li>exclusive film content</li>
+                    <li>educational resources</li>
+                    <li>historical context</li>
+                    <li>character storytelling</li>
+                    <li>future ticket reservation opportunities</li>
+                </ul>
+                <p>This approach helped maintain campaign objectives while providing users with meaningful reasons to return.</p>
+
+                <h3 class="case-subhead">Designing for uncertainty</h3>
+                <p>Unlike most film campaigns, the release timeline could no longer be treated as fixed.</p>
+                <p>The experience therefore needed to remain relevant regardless of how long audiences might need to wait.</p>
+                <p>This required a more flexible content strategy that emphasized discovery and learning rather than countdown-driven marketing mechanics.</p>
+                <figure class="case-figure">
+                    <img src="assets/radioactive/sketches.png" data-magnify
+                        alt="Early Radioactive wireframe sketches — desktop layout with poster, trailer, Pioneer/Genius/Rebel editorial clips, and ticketing; mobile layout with interactive timeline and localized trailer"
+                        loading="lazy" width="1200" height="800">
+                </figure>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-iteration">
+                <h2 id="radio-iteration">Iteration &amp; validation</h2>
+                <p>Early concepts were explored through wireframes and prototype development in collaboration with an external agency partner.</p>
+                <p>Low-fidelity concepts helped evaluate:</p>
+                <ul class="case-list">
+                    <li>content structure</li>
+                    <li>storytelling hierarchy</li>
+                    <li>user journeys</li>
+                    <li>engagement opportunities</li>
+                </ul>
+                <p>High-fidelity prototypes were then developed and reviewed with internal stakeholders and international distribution partners.</p>
+                <p>Because of release confidentiality requirements and shifting pandemic conditions, usability testing opportunities were limited compared to a traditional product development process.</p>
+                <p>However, both internal reviews and targeted user feedback helped validate:</p>
+                <ul class="case-list">
+                    <li>content discoverability</li>
+                    <li>narrative clarity</li>
+                    <li>educational value</li>
+                    <li>ticket reservation pathways</li>
+                </ul>
+                <p>The iterative process also helped prepare the platform for localization across multiple international markets.</p>
+                <figure class="case-figure">
+                    <img src="assets/radioactive/prototype-example.png" data-magnify
+                        alt="Radioactive high-fidelity prototype — desktop and mobile mockups showing homepage hero, character storytelling, and responsive campaign layouts"
+                        loading="lazy" width="1024" height="817">
+                </figure>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-outcome">
+                <h2 id="radio-outcome">Results &amp; reflection</h2>
+                <div class="case-project-launches">
+                    <p class="case-project-launches__title">Launched in</p>
+                    <ul class="case-project-launches__markets" role="list">
+                        <li class="case-project-launches__market">
+                            <img src="assets/flags/gb.svg" alt="" class="case-project-launches__flag" width="56" height="40" loading="lazy" decoding="async">
+                            <span class="case-project-launches__market-name">United Kingdom</span>
+                        </li>
+                        <li class="case-project-launches__market">
+                            <img src="assets/flags/fr.svg" alt="" class="case-project-launches__flag" width="56" height="40" loading="lazy" decoding="async">
+                            <span class="case-project-launches__market-name">France</span>
+                        </li>
+                        <li class="case-project-launches__market">
+                            <img src="assets/flags/de.png" alt="" class="case-project-launches__flag" width="56" height="40" loading="lazy" decoding="async">
+                            <span class="case-project-launches__market-name">Germany</span>
+                        </li>
+                        <li class="case-project-launches__market">
+                            <img src="assets/flags/au.svg" alt="" class="case-project-launches__flag" width="56" height="40" loading="lazy" decoding="async">
+                            <span class="case-project-launches__market-name">Australia</span>
+                        </li>
+                        <li class="case-project-launches__market">
+                            <img src="assets/flags/nz.svg" alt="" class="case-project-launches__flag" width="56" height="40" loading="lazy" decoding="async">
+                            <span class="case-project-launches__market-name">New Zealand</span>
+                        </li>
+                    </ul>
                 </div>
-                <div>
-                    <p class="case-meta-label">Challenge</p>
-                    <p class="case-meta-value">Paused theatrical window</p>
+                <p>While the unprecedented nature of COVID-19 made traditional campaign performance measurement difficult, the project successfully achieved its primary operational objective: providing audiences with a meaningful destination during a period when theatrical release plans remained uncertain.</p>
+                <p>The platform was successfully localized and launched across multiple international markets and provided a rich multimedia experience that celebrated Marie Curie&rsquo;s legacy while maintaining audience engagement with the film.</p>
+
+                <h3 class="case-subhead">Reflection</h3>
+                <p>This project reinforced an important lesson about digital product strategy:</p>
+                <p>The most effective experiences are often those that adapt when the original business assumptions change.</p>
+                <p>The initial objective was driving theatrical attendance. The reality became maintaining audience connection in a world where cinemas were temporarily inaccessible.</p>
+                <p>Rather than treating the website as a promotional endpoint, the project evolved into a storytelling platform capable of delivering educational value independent of the film&rsquo;s release schedule.</p>
+                <p>It also highlighted the importance of designing for resilience.</p>
+                <p>When external conditions change unexpectedly, the strongest digital experiences are often those that continue serving user needs even when their original purpose is disrupted.</p>
+            </section>
+
+            <section class="case-section" aria-labelledby="radio-presenting">
+                <h2 id="radio-presenting">Presenting Radioactive</h2>
+                <p>Combining historical storytelling, educational content, and film marketing, <em>Radioactive</em> became a digital experience designed to sustain audience engagement during one of the most disruptive periods in modern cinema history. Built around the remarkable life and legacy of Marie Curie, the platform extended the film&rsquo;s narrative beyond the screen through exclusive multimedia content, educational resources, and seamless pathways to future ticket reservations. More than a promotional website, it became a flexible storytelling destination that helped audiences remain connected to a powerful true story while the world waited for cinemas to reopen.</p>
+                <div class="case-visual-carousel" data-case-carousel aria-label="Radioactive website screenshots">
+                    <div class="case-visual-carousel__viewport" tabindex="0" aria-label="Radioactive website gallery">
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/radioactive/homepage.png" data-magnify width="800" height="600" loading="lazy"
+                                alt="Radioactive — campaign homepage">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/radioactive/trailer.png" data-magnify width="800" height="600" loading="lazy"
+                                alt="Radioactive — trailer and film content page">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/radioactive/streets.png" data-magnify width="800" height="600" loading="lazy"
+                                alt="Radioactive — Streets of Paris storytelling experience">
+                        </figure>
+                        <figure class="case-visual-carousel__slide case-figure">
+                            <img src="assets/radioactive/characters.png" data-magnify width="800" height="600" loading="lazy"
+                                alt="Radioactive — character storytelling screen">
+                        </figure>
+                    </div>
+                    <div class="case-visual-carousel__toolbar">
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--prev" aria-label="Previous slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M15 18l-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <div class="case-visual-carousel__dots" aria-label="Slide position"></div>
+                        <button type="button" class="case-visual-carousel__arrow case-visual-carousel__arrow--next" aria-label="Next slide">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
-                <div>
-                    <p class="case-meta-label">Goal</p>
-                    <p class="case-meta-value">Sustain audience curiosity</p>
-                </div>
+            </section>
             </div>
-        </header>
-
-        <section class="case-section" aria-labelledby="radio-context">
-            <h2 id="radio-context">Context</h2>
-            <p>A prestige biopic launch typically funnels attention through theatrical buzz, influencer beats, and
-                interactive digital extensions. When physical screenings halted, Radioactive&apos;s flagship site evolved into
-                the primary stage for sustaining emotional connection with the film&apos;s feminist-science story.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="radio-goal-detail">
-            <h2 id="radio-goal-detail">Goal</h2>
-            <p><span class="prose-strong">Maintain engagement between the paused campaign and delayed premiere milestones.</span>
-                The experience leaned on richly art-directed modules — trailer beats, exploratory “Streets of Paris” journeys,
-                and character-centric storytelling vignettes tuned for bingeable mobile sessions.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="radio-approach">
-            <h2 id="radio-approach">Approach</h2>
-            <p>Rolling narrative sections balanced editorial typography with tactile UI overlays that mirror the kinetic
-                key art palette. Lightweight interactive layers prolonged dwell time without asking audiences to hurdle heavy
-                UI — optimizing for spontaneous discovery on handheld screens during lockdown-era scroll sessions.</p>
-        </section>
-
-        <section class="case-section" aria-labelledby="radio-gallery-heading">
-            <h2 id="radio-gallery-heading">Experience frames</h2>
-            <p>Campaign-critical screens spanning mobile canvases, trailer beats, tertiary storytelling paths, and artful
-                character studies.</p>
-            <button type="button" class="btn btn--primary case-gallery-trigger" id="open-radio-gallery"
-                aria-haspopup="dialog" aria-controls="lightbox-radioactive">Open gallery</button>
-        </section>
+        </div>
     </main>
 
     <footer class="site-footer" role="contentinfo">
         <div class="site-footer-inner">
             <p>&copy; 2026 Christian Neri</p>
-            <p><a href="mailto:contact@christianneri.com">contact@christianneri.com</a></p>
         </div>
     </footer>
-
-    <div class="lightbox" id="lightbox-radioactive" role="dialog" aria-modal="true"
-        aria-labelledby="lightbox-radioactive-title" hidden data-lightbox-root data-open-button="open-radio-gallery">
-        <div class="lightbox-backdrop" data-lightbox-close></div>
-        <div class="lightbox-panel">
-            <p id="lightbox-radioactive-title" class="visually-hidden">Radioactive website gallery</p>
-            <button type="button" class="lightbox-close" data-lightbox-close aria-label="Close gallery">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                    aria-hidden="true">
-                    <path d="M18 6L6 18M6 6l12 12" />
-                </svg>
-            </button>
-            <div class="lightbox-carousel">
-                <div class="lightbox-viewport" tabindex="0" aria-label="Radioactive website screenshots">
-                    <figure class="lightbox-slide">
-                        <img src="assets/radioactive/mobile.png" alt="Radioactive — mobile website mockup">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/radioactive/trailer.png" alt="Radioactive — trailer page">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/radioactive/homepage.png" alt="Radioactive — homepage">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/radioactive/streets.png" alt="Radioactive — Streets of Paris experience">
-                    </figure>
-                    <figure class="lightbox-slide">
-                        <img src="assets/radioactive/characters.png" alt="Radioactive — character story screen">
-                    </figure>
-                </div>
-                <div class="lightbox-toolbar">
-                    <button type="button" class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous image">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M15 18l-6-6 6-6" />
-                        </svg>
-                    </button>
-                    <div class="lightbox-dots" aria-label="Gallery position"></div>
-                    <button type="button" class="lightbox-arrow lightbox-arrow--next" aria-label="Next image">
-                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M9 18l6-6-6-6" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="main.js" defer></script>
 </body>
