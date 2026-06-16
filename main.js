@@ -625,22 +625,46 @@
         var unit = root.querySelector(".work-macbook__unit");
         var slidesTrack = root.querySelector(".work-macbook__slides");
         var slides = Array.prototype.slice.call(root.querySelectorAll("[data-macbook-slide]"));
+        var cardsTrack = root.querySelector(".work-project-cards__track");
+        var cardPanels = Array.prototype.slice.call(root.querySelectorAll("[data-project-card]"));
         var dots = Array.prototype.slice.call(root.querySelectorAll("[data-macbook-index]"));
-        var prevBtn = root.querySelector("[data-macbook-prev]");
-        var nextBtn = root.querySelector("[data-macbook-next]");
+        var prevBtns = Array.prototype.slice.call(root.querySelectorAll("[data-macbook-prev]"));
+        var nextBtns = Array.prototype.slice.call(root.querySelectorAll("[data-macbook-next]"));
         var spotlightPanels = Array.prototype.slice.call(root.querySelectorAll("[data-project-spotlight]"));
+        var desktopMacbookMq = window.matchMedia("(min-width: 1024px)");
         var idx = 0;
         var openHoldMs = 320;
+
+        function usesDesktopMacbook() {
+            return desktopMacbookMq.matches;
+        }
+
+        function updateDotControls() {
+            dots.forEach(function (btn, j) {
+                btn.setAttribute(
+                    "aria-controls",
+                    usesDesktopMacbook() ? "macbook-slide-" + j : "project-card-" + j
+                );
+            });
+        }
 
         function setSlide(i) {
             if (i < 0 || i >= slides.length) return;
             idx = i;
-            // Slide the carousel track horizontally — slides translate in/out
-            // like a macOS spaces swipe rather than dissolving.
             if (slidesTrack) {
                 slidesTrack.style.transform = "translate3d(" + (-i * 100) + "%, 0, 0)";
             }
+            if (cardsTrack) {
+                cardsTrack.style.transform = "translate3d(" + (-i * 100) + "%, 0, 0)";
+            }
             slides.forEach(function (el, j) {
+                var on = j === i;
+                el.classList.toggle("is-active", on);
+                el.setAttribute("aria-hidden", on ? "false" : "true");
+                if (on) el.removeAttribute("inert");
+                else el.setAttribute("inert", "");
+            });
+            cardPanels.forEach(function (el, j) {
                 var on = j === i;
                 el.classList.toggle("is-active", on);
                 el.setAttribute("aria-hidden", on ? "false" : "true");
@@ -657,6 +681,7 @@
                 panel.classList.toggle("is-active", on);
                 panel.setAttribute("aria-hidden", on ? "false" : "true");
             });
+            updateDotControls();
         }
 
         dots.forEach(function (btn, j) {
@@ -665,16 +690,17 @@
             });
         });
 
-        if (prevBtn) {
-            prevBtn.addEventListener("click", function () {
+        prevBtns.forEach(function (btn) {
+            btn.addEventListener("click", function () {
                 setSlide((idx - 1 + slides.length) % slides.length);
             });
-        }
-        if (nextBtn) {
-            nextBtn.addEventListener("click", function () {
+        });
+
+        nextBtns.forEach(function (btn) {
+            btn.addEventListener("click", function () {
                 setSlide((idx + 1) % slides.length);
             });
-        }
+        });
 
         root.addEventListener("keydown", function (e) {
             if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
@@ -684,15 +710,25 @@
         });
 
         function openMacbook() {
-            if (!unit) return;
+            if (!unit || !usesDesktopMacbook()) return;
             unit.classList.add("work-macbook__unit--open");
             unit.classList.add("work-macbook__unit--lift");
         }
 
         setSlide(0);
 
+        if (typeof desktopMacbookMq.addEventListener === "function") {
+            desktopMacbookMq.addEventListener("change", updateDotControls);
+        } else if (typeof desktopMacbookMq.addListener === "function") {
+            desktopMacbookMq.addListener(updateDotControls);
+        }
+
         if (prefersReducedMotion) {
             openMacbook();
+            return;
+        }
+
+        if (!usesDesktopMacbook()) {
             return;
         }
 
@@ -701,6 +737,7 @@
         // on initial load.
         var openTriggered = false;
         function triggerOpen() {
+            if (!usesDesktopMacbook()) return;
             if (openTriggered) return;
             openTriggered = true;
             window.setTimeout(openMacbook, openHoldMs);

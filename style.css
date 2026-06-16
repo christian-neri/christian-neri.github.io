@@ -1143,6 +1143,160 @@ body.home #main.shell-main {
     margin-top: 0;
 }
 
+/* Tablet & mobile — project cards (Option A); MacBook is desktop-only */
+.work-project-cards {
+    display: none;
+    margin-top: clamp(4px, 1vw, 10px);
+}
+
+.work-project-cards__shell {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: clamp(8px, 2vw, 14px);
+    width: 100%;
+    max-width: 1120px;
+    margin-inline: auto;
+}
+
+.work-project-cards__viewport {
+    overflow: hidden;
+    min-width: 0;
+}
+
+.work-project-cards__track {
+    display: flex;
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.18, 1);
+    will-change: transform;
+}
+
+.work-project-card {
+    flex: 0 0 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 2.4vw, 18px);
+}
+
+.work-project-card__visual {
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-m);
+    background: #eef0f5;
+    min-height: clamp(180px, 42vw, 280px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.work-project-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.work-project-card__visual--paradigm {
+    background: #f7f4ef;
+}
+
+.work-project-card__visual--paradigm img {
+    object-fit: contain;
+    transform: scale(0.96);
+}
+
+.work-project-card__visual--radioactive {
+    background: var(--radioactive-frame);
+}
+
+.work-project-card__visual--radioactive img {
+    object-fit: contain;
+}
+
+.work-project-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    text-align: left;
+    padding: 0 clamp(2px, 0.6vw, 6px);
+}
+
+.work-project-card__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.15rem, 3.2vw, 1.45rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+    margin: 0;
+}
+
+.work-project-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.work-project-card__body .case-hero-meta {
+    margin: 0;
+    width: 100%;
+}
+
+.work-project-card__body .case-hero-meta__text {
+    font-size: clamp(13px, 1.85vw, 15px);
+}
+
+.work-project-card__cta {
+    margin-top: 2px;
+}
+
+.work-macbook-stage--desktop {
+    display: block;
+}
+
+@media (max-width: 1023px) {
+    .work-project-cards {
+        display: block;
+    }
+
+    .work-macbook-stage--desktop {
+        display: none;
+    }
+
+    .work-macbook-nav {
+        margin-top: clamp(12px, 2.4vw, 18px);
+    }
+
+    /* One surface for image + copy — avoids shadow bleed onto the title block */
+    .work-project-card {
+        background: var(--neo-face);
+        border: 1px solid var(--border-subtle);
+        border-radius: var(--radius-card);
+        box-shadow: var(--shadow-s);
+        padding: clamp(12px, 2.8vw, 16px);
+        gap: clamp(16px, 3.2vw, 22px);
+    }
+
+    .work-project-card__visual {
+        box-shadow: none;
+        border-color: rgba(20, 23, 34, 0.07);
+        border-radius: calc(var(--radius-card) - 8px);
+    }
+
+    .work-project-card__body {
+        padding: 0 clamp(4px, 1.2vw, 10px);
+    }
+}
+
+@media (min-width: 1024px) {
+    .work-project-cards {
+        display: none !important;
+    }
+}
+
 #work .section-surface.frost-tilt--work-shell {
     padding-top: clamp(20px, 3.6vw, 32px);
     padding-bottom: clamp(12px, 2.2vw, 20px);
