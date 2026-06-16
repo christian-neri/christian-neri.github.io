@@ -101,7 +101,7 @@
             bodyLines.push("", message);
 
             var mailto =
-                "mailto:contact@christianneri.com" +
+                "mailto:christian.g.neri@gmail.com" +
                 "?subject=" +
                 encodeURIComponent("Portfolio message from " + senderEmail) +
                 "&body=" +
