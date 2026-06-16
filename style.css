@@ -953,7 +953,7 @@ body.home #main.shell-main {
 .hero-headlines h1 {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: clamp(1.85rem, 4.8vw, 2.65rem);
+    font-size: clamp(1.5rem, 3.75vw, 2.1rem);
     letter-spacing: -0.035em;
     line-height: 1.12;
     /* Letterpress/deboss — reads carved into frost; not clickable like pill CTAs */
