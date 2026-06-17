@@ -4328,6 +4328,102 @@ body.home #main.shell-main {
     border: 1px solid var(--border-subtle);
 }
 
+.case-next-nav {
+    margin-top: clamp(4px, 1.2vw, 10px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(12px, 2vw, 16px);
+}
+
+.case-next-nav__link {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding: clamp(18px, 3.2vw, 26px) clamp(20px, 3.6vw, 30px);
+    border-radius: var(--radius-panel);
+    background: var(--surface-panel);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-subtle);
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow-m);
+    transition: transform 0.22s var(--ease), box-shadow 0.22s var(--ease), border-color 0.22s var(--ease);
+}
+
+.case-next-nav__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    width: 100%;
+}
+
+.case-next-nav__link--prev .case-next-nav__copy {
+    align-items: flex-start;
+    text-align: left;
+}
+
+.case-next-nav__link--next .case-next-nav__copy {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.case-next-nav__eyebrow {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.case-next-nav__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+}
+
+@media (max-width: 719px) {
+    .case-next-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .case-next-nav__link--next .case-next-nav__copy {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .case-next-nav__link:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lift);
+        border-color: rgba(61, 82, 217, 0.18);
+    }
+
+    .case-next-nav__link:active {
+        transform: translateY(0);
+        box-shadow: var(--shadow-s);
+    }
+}
+
+.case-next-nav__link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+    .case-next-nav__link {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: var(--surface-raised);
+    }
+}
+
 .case-prose-panel__content > .case-section:last-child {
     margin-bottom: 0;
 }
