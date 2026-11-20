@@ -2588,38 +2588,28 @@ body.home #main.shell-main {
 }
 
 /*
- * The HTML node clipped to the country path.  Mirrors the section-nav-track:
- *   - subtle white wash
- *   - real backdrop-filter blur of whatever sits behind the about panel
- *   - layered inset shadows that read as glass thickness
- * Because <foreignObject> children layout in normal CSS pixels, this stretches
- * to the full SVG viewBox and the clip-path crops it to the country silhouette.
+ * Glass was originally a full-viewBox <foreignObject> + sheen rect, clipped
+ * to the country path. WebKit does not clip HTML inside foreignObject (especially
+ * with backdrop-filter), so the glass leaked as a rectangle around each map.
+ * Fill the silhouette path instead so the wash stays inside the outline.
  */
-.country__glass {
-    width: 100%;
-    height: 100%;
-    background: var(--liquid-glass-bg);
-    backdrop-filter: var(--liquid-glass-backdrop);
-    -webkit-backdrop-filter: var(--liquid-glass-backdrop);
-    box-shadow: var(--liquid-glass-inset-shadows);
-    border-radius: 0;
+.country__svg foreignObject,
+.country__sheen {
+    display: none;
 }
 
-/* Faux highlight gradient layered on top of the glass for a wet-light feel */
-.country__sheen {
-    pointer-events: none;
-    mix-blend-mode: screen;
-    opacity: 0.55;
+.country__glass {
+    display: none;
 }
 
 /* Hand-sketched outline — slightly warm ink, rounded joins */
 .country__outline {
-    fill: none;
+    fill: rgba(255, 255, 255, 0.42);
     stroke: rgba(20, 23, 34, 0.55);
     stroke-width: 1.1;
     stroke-linejoin: round;
     stroke-linecap: round;
-    transition: stroke 0.3s ease, stroke-width 0.3s ease;
+    transition: fill 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease;
 }
 
 /* Pin */
@@ -2684,6 +2674,7 @@ body.home #main.shell-main {
     .country:focus-visible .country__outline,
     .country.is-active .country__outline,
     .country-wrap--usa.is-active .country__outline {
+        fill: rgba(255, 255, 255, 0.58);
         stroke: rgba(61, 82, 217, 0.85);
         stroke-width: 1.4;
     }
